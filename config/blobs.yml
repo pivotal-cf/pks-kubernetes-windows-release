@@ -1,0 +1,15 @@
+cni/cni-plugins-windows-amd64-c74e0e996.tgz:
+  size: 9678154
+  sha: 02c4d67a17a28c26cc471e56bf01dcacd104b346
+flannel-v0.11.0-windows-amd64.tar.gz:
+  size: 9488010
+  sha: 71cb61a487c40df8eeb4d2bd68d7e891b51b44bb
+kubernetes-windows-1.13.4/kube-proxy.exe:
+  size: 34466816
+  sha: e08e17e6370a2ef53c3d6a74cc89ea28d083b55d
+kubernetes-windows-1.13.4/kubectl.exe:
+  size: 39670272
+  sha: fa5c7a0d3c7ae7edb8d6fb276dcfcf9a232b17ec
+kubernetes-windows-1.13.4/kubelet.exe:
+  size: 102774272
+  sha: 30c8cab80e5940503f9cdd36b51c56f47f0411d2
