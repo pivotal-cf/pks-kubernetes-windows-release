@@ -16,8 +16,8 @@ main() {
 
   windows_binaries=(
     "kube-proxy.exe"
-    #"kubectl.exe"
-    #"kubelet.exe"
+    "kubectl.exe"
+    "kubelet.exe"
   )
   platforms=(
     "windows"
@@ -28,22 +28,22 @@ main() {
       package_name=$(package_name "${platform}")
       declare -n binaries="${platform}_binaries"
 
-      #existing_k8s_spec=$(bosh blobs --column path | grep "${binaries[0]}" | grep -o -E "${package_name}-([0-9]+\.)+[0-9]+")
-      #existing_k8s_version=$(echo "$existing_k8s_spec" | grep -o -E '([0-9]+\.)+[0-9]+')
+      existing_k8s_spec=$(bosh blobs --column path | grep "${binaries[0]}" | grep -o -E "${package_name}-([0-9]+\.)+[0-9]+")
+      existing_k8s_version=$(echo "$existing_k8s_spec" | grep -o -E '([0-9]+\.)+[0-9]+')
 
-      #if [ "$existing_k8s_version" == "$kubernetes_version" ]; then
-          #echo "Kubernetes version already up-to-date."
-      #else
-        #pushd "packages/${package_name}"
-        #  sed -E -i -e "s/([0-9]+\.)+[0-9]+/${kubernetes_version}/" packaging
-        #  sed -E -i -e "s/${existing_k8s_spec}/${package_name}-${kubernetes_version}/" spec
-        #popd
+      if [ "$existing_k8s_version" == "$kubernetes_version" ]; then
+          echo "Kubernetes version already up-to-date."
+      else
+        pushd "packages/${package_name}"
+          sed -E -i -e "s/([0-9]+\.)+[0-9]+/${kubernetes_version}/" packaging
+          sed -E -i -e "s/${existing_k8s_spec}/${package_name}-${kubernetes_version}/" spec
+        popd
 
         for binary in "${binaries[@]}"; do
           download "${binary}" "${staging_dir}" "${kubernetes_version}" "${platform}"
           add_blob "${binary}" "${staging_dir}" "${kubernetes_version}" "${package_name}"
         done
-      #fi
+      fi
     done
 
   popd
