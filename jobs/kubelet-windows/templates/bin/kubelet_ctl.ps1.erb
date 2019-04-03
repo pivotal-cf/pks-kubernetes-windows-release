@@ -26,9 +26,13 @@ $env:PATH+=";C:\var\vcap\packages\docker\docker\;"
   if iaas=="vsphere"
     labels << "failure-domain.beta.kubernetes.io/zone=#{spec.az}"
   end
-  if_p("labels") do |node_labels|
-    labels += node_labels.map {|k,v| "#{k}=#{v}"}
+
+  if_p('k8s-args') do |args|
+    custom_labels = args.fetch('node-labels', "").split(",")
+    labels = custom_labels + labels
+    args.delete('node-labels')
   end
+
   labels = labels.join(',')
 %>
 
