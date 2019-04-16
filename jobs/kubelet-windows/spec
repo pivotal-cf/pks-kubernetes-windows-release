@@ -2,6 +2,7 @@ name: kubelet-windows
 templates:
   bin/drain.ps1.erb: bin/drain.ps1
   bin/kubelet_ctl.ps1.erb: bin/kubelet_ctl.ps1
+  bin/post-start.ps1.erb: bin/post-start.ps1
   config/apiserver-ca.pem.erb: config/apiserver-ca.pem
   config/cloud-provider.ini.erb: config/cloud-provider.ini
   config/Dockerfile: config/Dockerfile

@@ -1,0 +1,69 @@
+trap { $host.SetShouldExit(1) }
+
+function kubelet_is_running() {
+  curl.exe --fail http://localhost:10248/healthz
+  return $?
+}
+
+function kubectl() {
+  C:\var\vcap\packages\kubernetes-windows\bin\kubectl.exe --kubeconfig C:\var\vcap\jobs\kubelet-windows\config\kubeconfig @Args
+}
+
+function patch_flannel_network() {
+  $node_name=$(kubectl get nodes -o json | convertfrom-json | % items | ? {$_.metadata.labels."bosh.id" -eq "<%= spec.id %>"} | % {$_.metadata.name})
+  if (kubectl get nodes $node_name -o json | convertfrom-json | % {$_.status.conditions} | ? type -eq "NetworkUnavailable") {
+    $patch=@"
+{
+  ""status"":{
+    ""conditions"": [
+     {
+        ""type"": ""NetworkUnavailable"",
+        ""status"": ""False"",
+        ""reason"": ""NetworkProvidedByFlannel"",
+        ""message"": ""Status manually modified by CFCR kubelet post-start""
+     }
+    ]
+  }
+}
+"@
+    $token=kubectl config view -o json | convertfrom-json | % users | ? name -eq "kubelet"  | % {$_.user.token}
+    Start-Job -Name "proxy" -ScriptBlock {
+	  C:\var\vcap\packages\kubernetes-windows\bin\kubectl.exe --kubeconfig C:\var\vcap\jobs\kubelet-windows\config\kubeconfig proxy
+    }
+    curl.exe -sS `
+    -H "Authorization: Bearer ${token}" `
+    -H "Accept: application/json" `
+    -H "Content-Type: application/strategic-merge-patch+json" `
+    -X PATCH `
+    -d $patch `
+    localhost:8001/api/v1/nodes/${node_name}/status
+
+    Stop-Job -Name "proxy"
+  }
+}
+
+function main() {
+  retry "passed kubelet healthcheck" $function:kubelet_is_running
+  patch_flannel_network
+}
+
+function retry($name, $func) {
+  $attempt_number=1
+  $max_attempts=10
+
+  do {
+    $result=$func.Invoke()
+    if ($result) {
+      echo "Successfully $name"
+      return $true
+    }
+    echo ("[{0}] Unsuccessful {1}, retrying attempt {2} out of {3}" -f (Get-Date -UFormat %s), $name, $attempt_number, $max_attempts)
+    $attempt_number=$attempt_number + 1
+    sleep 1
+  } while ($attempt_number -le $max_attempts)
+
+  echo "Failed all retry attempts for $name"
+  return $false
+}
+
+main
