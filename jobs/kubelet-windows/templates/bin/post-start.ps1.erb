@@ -30,7 +30,9 @@ function patch_flannel_network() {
     Start-Job -Name "proxy" -ScriptBlock {
 	  C:\var\vcap\packages\kubernetes-windows\bin\kubectl.exe --kubeconfig C:\var\vcap\jobs\kubelet-windows\config\kubeconfig proxy
     }
+
     curl.exe -sS `
+    --retry 5 --retry-delay 0 --retry-max-time 30 --retry-connrefused `
     -H "Authorization: Bearer ${token}" `
     -H "Accept: application/json" `
     -H "Content-Type: application/strategic-merge-patch+json" `
