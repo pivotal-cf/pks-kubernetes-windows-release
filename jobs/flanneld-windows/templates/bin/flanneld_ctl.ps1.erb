@@ -91,4 +91,27 @@ function start_flanneld {
     --etcd-cafile=/var/vcap/jobs/flanneld-windows/config/etcd-ca.crt
 }
 
+function disable_gcp_address_management {
+  # https://github.com/kubernetes/kubernetes/issues/75561
+  $agentConfig = "/Program Files/Google/Compute Engine/instance_configs.cfg"
+  $disable = @"
+
+# Modified by BOSH
+[addressManager]
+disable=true
+"@
+  if ([System.IO.File]::Exists($agentConfig))
+  {
+    $file = Get-Content $agentConfig
+    $matches = $file | %{$_ -match "# Modified by BOSH"}
+    if (-not ($matches -contains $true))
+    {
+      Add-Content -Path $agentConfig -Value $disable
+    }
+
+    Restart-Service GCEAgent
+  }
+}
+
+disable_gcp_address_management
 start_flanneld
