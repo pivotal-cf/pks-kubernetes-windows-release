@@ -14,7 +14,7 @@ $sourceVIPFile = "/var/vcap/data/kube-proxy-windows/sourceVip.json"
 $configFile = "/var/vcap/jobs/kube-proxy-windows/config/config.yml"
 
 function ensure_kubelet_is_running {
-  curl.exe --fail http://localhost:10248/healthz
+  curl.exe --fail --retry 10 --retry-delay 0 --retry-max-time 60 --retry-connrefused http://localhost:10248/healthz
   if (-not $?) {
     throw "kubelet is not available"
   }
@@ -84,6 +84,7 @@ function misc_setup {
 function main() {
   misc_setup
   check_for_networking
+  ensure_kubelet_is_running
   set_source_vip
   start_kube_proxy
 }
