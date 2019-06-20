@@ -74,6 +74,8 @@ function start_flanneld {
 "@
   Set-Content -Path /etc/cni/net.d/50-flannel.conflist -Value $confFile
 
+  $gateway=(Get-NetIPConfiguration).IPv4DefaultGateway.NextHop
+
   if (!(Get-HnsNetwork | ? Name -Eq "External")) {
     ipmo /var/vcap/jobs/flanneld-windows/bin/hns.psm1
     if ($networkType -eq "win-overlay") {
@@ -82,6 +84,9 @@ function start_flanneld {
       New-HNSNetwork -Type "L2Bridge" -AddressPrefix "192.168.255.0/30" -Gateway "192.168.255.1" -Name "External" -Verbose
     }
   }
+
+  # Fix for gateway disappearing upon HNS network creation on Azure. Should be a no-op on other platforms
+  route add 0.0.0.0 mask 0.0.0.0 $gateway
 
   /var/vcap/packages/flanneld-windows/flanneld.exe `
     --etcd-endpoints=<%= etcd_endpoints %> `
