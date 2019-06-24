@@ -116,7 +116,6 @@ function check_for_networking {
 }
 
 function load_base_images {
-  # Temporary workaround until we bring our own images
   docker version
   if (-not $?) {
     throw "docker is not available"
