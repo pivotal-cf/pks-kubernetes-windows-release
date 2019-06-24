@@ -6,7 +6,16 @@ $ErrLog = "C:\var\vcap\sys\log\kubelet-windows\drain.stderr.log"
 
 function main {
   if (kubelet_is_running) {
-    retry "drain_kubelet" $function:drain_kubelet
+    if ! drain_kubelet ; then
+      <% if_p("kubelet-drain-force-node") do |prop| %>
+        <% if prop %>
+          force_kill_pods
+        <% else %>
+          echo "Unsuccessful function drain_node"
+          exit 1
+        <% end %>
+      <% end %>
+    fi
     # watch_disks TODO(BM/LH): implement this?
     retry "delete_drained_node" $function:delete_drained_node
   }
@@ -22,10 +31,48 @@ function drain_kubelet() {
   if (!$node_name) {
     return $true
   }
-  /var/vcap/packages/kubernetes-windows/bin/kubectl `
-    --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain drain "${node_name}" `
-    --grace-period 10 --force --delete-local-data --ignore-daemonsets
+
+  kubectl_args=()
+  kubectl_args+=(--kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain drain)
+  kubectl_args+=(-l "bosh.id=<%= spec.id %>")
+  kubectl_args+=(--grace-period <%= p("kubelet-drain-grace-period") %>)
+  kubectl_args+=(--timeout <%= p("kubectl-drain-timeout") %>)
+
+  <% if_p("kubelet-drain-force") do |prop| %>
+    <% if prop %>
+      kubectl_args+=(--force)
+    <% end %>
+  <% end %>
+
+  <% if_p("kubelet-drain-ignore-daemonsets") do |prop| %>
+    <% if prop %>
+      kubectl_args+=(--ignore-daemonsets)
+    <% end %>
+  <% end %>
+
+  <% if_p("kubelet-drain-delete-local-data") do |prop| %>
+    <% if prop %>
+      kubectl_args+=(--delete-local-data)
+    <% end %>
+  <% end %>
+
+  /var/vcap/packages/kubernetes-windows/bin/kubectl "${kubectl_args[@]}"
+
   return $?
+}
+
+force_kill_pods() {
+  echo "Forcefully draining the node"
+  node_name=$(/var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain get node -l "bosh.id=<%= spec.id %>" -o jsonpath="{.items[:].metadata.name}")
+  namespaces=( $(/var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain get pods --all-namespaces --field-selector spec.nodeName=${node_name} -o jsonpath="{.items[:].metadata.namespace}" | xargs -n1 | sort -u -) )
+  for namespace in "${namespaces[@]}"; do
+    echo $namespace;
+    podnames=( $(/var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain get pods -n=${namespace} --field-selector spec.nodeName=${node_name} -o jsonpath="{.items[:].metadata.name}") )
+    for pod_name in "${podnames[@]}"; do
+      echo "Force Deleting pod ${pod_name}"
+      /var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain delete pods ${pod_name}  --namespace ${namespace} --grace-period=0 --force
+    done
+  done
 }
 
 function delete_drained_node() {
