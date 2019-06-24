@@ -87,6 +87,7 @@ function start_flanneld {
 
   # Fix for gateway disappearing upon HNS network creation on Azure. Should be a no-op on other platforms
   route add 0.0.0.0 mask 0.0.0.0 $gateway
+  restart-service docker
 
   /var/vcap/packages/flanneld-windows/flanneld.exe `
     --etcd-endpoints=<%= etcd_endpoints %> `
