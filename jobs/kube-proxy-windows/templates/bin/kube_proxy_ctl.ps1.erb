@@ -9,6 +9,11 @@
 -%>
 trap { $host.SetShouldExit(1) }
 
+<% if_p('cloud-provider') do |cloud_provider| %>
+  <% iaas = cloud_provider %>
+  $cloud_provider="<%= cloud_provider %>"
+<% end %>
+
 $hnsNetworkName = "<%= hns_network_name %>"
 $sourceVIPFile = "/var/vcap/data/kube-proxy-windows/sourceVip.json"
 $configFile = "/var/vcap/jobs/kube-proxy-windows/config/config.yml"
@@ -44,6 +49,27 @@ winkernel:
 "@
     Add-Content -Path $configFile -Value $config
   }
+}
+
+function get_hostname_override {
+  if ($cloud_provider -in "gce", "vsphere") {
+    return ""
+  } elseif ($cloud_provider -in "azure") {
+    return (cat C:\var\vcap\bosh\settings.json | ConvertFrom-Json).agent_id
+  } else {
+    return "<%= spec.ip %>"
+  }
+}
+
+function set_hostname_overide {
+  if (!(Select-String -Path $configFile -Pattern "hostnameOverride")) {
+    $hostname = get_hostname_override
+    $config = @"
+hostnameOverride: $hostname
+"@
+    Add-Content -Path $configFile -Value $config
+  }
+
 }
 
 function start_kube_proxy {
@@ -86,6 +112,7 @@ function main() {
   check_for_networking
   ensure_kubelet_is_running
   set_source_vip
+  set_hostname_overide
   start_kube_proxy
 }
 
