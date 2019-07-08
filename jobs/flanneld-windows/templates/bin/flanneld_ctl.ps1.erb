@@ -45,8 +45,8 @@ function start_flanneld {
               "Type": "OutBoundNAT",
               "ExceptionList": [
                 "<%= p('pod-network-cidr') %>",
-                "10.100.200.0/12",
-                "<%= spec.ip.split(".")[0...-1].append(0).join(".") %>/24"
+                "10.100.200.0/12"<% if p("backend-type") == "win-bridge" %>,
+                "<%= spec.ip.split(".")[0...-1].append(0).join(".") %>/24"<% end %>
               ]
             }
           },
@@ -57,7 +57,7 @@ function start_flanneld {
               "DestinationPrefix": "10.100.200.0/24",
               "NeedEncap": true
             }
-          },
+          }<% if p("backend-type") == "win-bridge" %>,
           {
             "Name": "EndpointPolicy",
             "Value": {
@@ -65,7 +65,7 @@ function start_flanneld {
               "DestinationPrefix": "<%= spec.ip %>/32",
               "NeedEncap": true
             }
-          }
+          }<% end %>
         ]
       }
     }
