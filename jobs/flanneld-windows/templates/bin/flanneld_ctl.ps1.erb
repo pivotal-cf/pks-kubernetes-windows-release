@@ -94,7 +94,8 @@ function start_flanneld {
     --ip-masq `
     --etcd-certfile=/var/vcap/jobs/flanneld-windows/config/etcd-client.crt `
     --etcd-keyfile=/var/vcap/jobs/flanneld-windows/config/etcd-client.key `
-    --etcd-cafile=/var/vcap/jobs/flanneld-windows/config/etcd-ca.crt
+    --etcd-cafile=/var/vcap/jobs/flanneld-windows/config/etcd-ca.crt `
+    --iface=<%= spec.ip %>
 }
 
 function disable_gcp_address_management {
