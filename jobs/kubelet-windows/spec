@@ -14,6 +14,7 @@ templates:
   config/kubeletconfig.yml.erb: config/kubeletconfig.yml
   config/openstack-ca.crt.erb: config/openstack-ca.crt
   config/service_key.json.erb: config/service_key.json
+  lib/GetGcePdName.dll: lib/GetGcePdName.dll
 packages:
 - kubernetes-windows
 - cni-windows
