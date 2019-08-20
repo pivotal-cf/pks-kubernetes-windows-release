@@ -76,6 +76,11 @@ function start_flanneld {
 
   $gateway=(Get-NetIPConfiguration).IPv4DefaultGateway.NextHop
 
+  if ($networkType -eq "win-overlay") {
+    Get-HnsNetwork | ? Type -eq "L2Bridge" | Remove-HNSNetwork
+  } else {
+    Get-HnsNetwork | ? Type -eq "Overlay" | Remove-HNSNetwork
+  }
   if (!(Get-HnsNetwork | ? Name -Eq "External")) {
     ipmo /var/vcap/jobs/flanneld-windows/bin/hns.psm1
     if ($networkType -eq "win-overlay") {
