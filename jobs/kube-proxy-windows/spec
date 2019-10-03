@@ -36,3 +36,9 @@ properties:
           CPUManager: true
           DryRun: false
         cleanup: false
+  cni_init_file:
+    description: "File used by kube-proxy to check if cni is initialized"
+    default: "/run/flannel/subnet.env"
+  hns_network_type:
+    description: "Type of HNS Network to be used to find the HNS Network Name"
+    default: "L2Bridge"

@@ -105,11 +105,11 @@ function start_kubelet {
 }
 
 function check_for_networking {
-  $subnetConfig="/run/flannel/subnet.env"
+  $cniInitFile='<%= p('cni_init_file') %>'
 
-  if (-not ([System.IO.File]::Exists($subnetConfig)))
+  if (-not ([System.IO.File]::Exists($cniInitFile)))
   {
-    throw "$subnetConfig does not exist, waiting for flannel initialization"
+    throw "$cniInitFile does not exist, waiting for CNI initialization"
   }
 }
 
