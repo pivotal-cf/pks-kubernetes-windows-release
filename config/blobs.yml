@@ -6,10 +6,10 @@ docker-windows/docker-18-09-9.zip:
   size: 49417290
   object_id: 07d8db34-1649-472b-4f49-6a496aec19f6
   sha: 269a6baacd95e7b59f2e4695cca0b662359e497e
-flannel-v0.11.0-windows-amd64.tar.gz:
-  size: 9488010
-  object_id: 968eac5f-3008-4bcf-5481-f3f4179162d4
-  sha: 71cb61a487c40df8eeb4d2bd68d7e891b51b44bb
+flannel-v0.11.0-44-g3f87efc4-windows-amd64.tar.gz:
+  size: 9548976
+  object_id: 1a947dbf-c668-4e34-63c8-63d1aaa715d4
+  sha: 7c68f433e4aac88210110df1d0596ee6b46f6157
 kubernetes-windows-1.14.5/kube-proxy.exe:
   size: 39761920
   object_id: 551f7bb2-178f-4933-6e25-780bd363cb49
