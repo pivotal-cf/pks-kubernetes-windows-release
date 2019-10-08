@@ -113,23 +113,6 @@ function check_for_networking {
   }
 }
 
-function load_base_images {
-  # Temporary workaround until we bring our own images
-  docker version
-  if (-not $?) {
-    throw "docker is not available"
-  }
-
-  docker pull mcr.microsoft.com/windows/nanoserver:1809
-  docker tag (docker images mcr.microsoft.com/windows/nanoserver:1809 -q) mcr.microsoft.com/windows/nanoserver
-  docker build -t kubeletwin/pause /var/vcap/jobs/kubelet-windows/config
-
-  Start-Job -ScriptBlock {
-    docker pull mcr.microsoft.com/windows/servercore:ltsc2019
-    docker tag (docker images mcr.microsoft.com/windows/servercore:ltsc2019 -q) mcr.microsoft.com/windows/servercore
-  }
-}
-
 function set_acls {
   $ar = New-Object System.Security.AccessControl.FileSystemAccessRule("BUILTIN\Users", "ReadAndExecute,CreateFiles,AppendData", "ContainerInherit, ObjectInherit", "None", "Allow")
   $acl = Get-Acl C:\var
@@ -140,7 +123,6 @@ function set_acls {
 function main {
   delete_stale_drained_node
   check_for_networking
-  load_base_images
   set_acls
   start_kubelet
 }
