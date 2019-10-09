@@ -8,18 +8,18 @@ function ensure_kubelet_is_running {
 }
 
 function start_kube_proxy {
-  $network = Get-HnsNetwork | ? Type -Eq L2Bridge
+  $network = Get-HnsNetwork | ? Type -Eq <%= p('hns_network_type') %>
   $env:KUBE_NETWORK = $network.Name
 
   C:\var\vcap\packages\kubernetes-windows\bin\kube-proxy.exe -v 5 --config /var/vcap/jobs/kube-proxy-windows/config/config.yml
 }
 
 function check_for_networking {
-  $subnetConfig="/run/flannel/subnet.env"
+  $cniInitFile='<%= p('cni_init_file') %>'
 
-  if (-not ([System.IO.File]::Exists($subnetConfig)))
+  if (-not ([System.IO.File]::Exists($cniInitFile)))
   {
-    throw "$subnetConfig does not exist, waiting for flannel initialization"
+    throw "$cniInitFile does not exist, waiting for CNI initialization"
   }
 }
 

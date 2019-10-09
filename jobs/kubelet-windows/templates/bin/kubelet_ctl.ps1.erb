@@ -105,28 +105,11 @@ function start_kubelet {
 }
 
 function check_for_networking {
-  $subnetConfig="/run/flannel/subnet.env"
+  $cniInitFile='<%= p('cni_init_file') %>'
 
-  if (-not ([System.IO.File]::Exists($subnetConfig)))
+  if (-not ([System.IO.File]::Exists($cniInitFile)))
   {
-    throw "$subnetConfig does not exist, waiting for flannel initialization"
-  }
-}
-
-function load_base_images {
-  # Temporary workaround until we bring our own images
-  docker version
-  if (-not $?) {
-    throw "docker is not available"
-  }
-
-  docker pull mcr.microsoft.com/windows/nanoserver:1809
-  docker tag (docker images mcr.microsoft.com/windows/nanoserver:1809 -q) mcr.microsoft.com/windows/nanoserver
-  docker build -t kubeletwin/pause /var/vcap/jobs/kubelet-windows/config
-
-  Start-Job -ScriptBlock {
-    docker pull mcr.microsoft.com/windows/servercore:ltsc2019
-    docker tag (docker images mcr.microsoft.com/windows/servercore:ltsc2019 -q) mcr.microsoft.com/windows/servercore
+    throw "$cniInitFile does not exist, waiting for CNI initialization"
   }
 }
 
@@ -140,7 +123,6 @@ function set_acls {
 function main {
   delete_stale_drained_node
   check_for_networking
-  load_base_images
   set_acls
   start_kubelet
 }

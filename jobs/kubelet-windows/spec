@@ -4,7 +4,6 @@ templates:
   bin/kubelet_ctl.ps1.erb: bin/kubelet_ctl.ps1
   config/apiserver-ca.pem.erb: config/apiserver-ca.pem
   config/cloud-provider.ini.erb: config/cloud-provider.ini
-  config/Dockerfile: config/Dockerfile
   config/kubeconfig-drain.erb: config/kubeconfig-drain
   config/kubeconfig.erb: config/kubeconfig
   config/kubelet-client-ca.pem.erb: config/kubelet-client-ca.pem
@@ -51,6 +50,9 @@ properties:
     description: CA certificate of the authority granting access to kubelet server
   tls.kubernetes:
     description: Certificate and private key for the Kubernetes master
+  cni_init_file:
+    description: "File used by kubelet to check if cni is initialized"
+    default: "/run/flannel/subnet.env"
 consumes:
 - name: cloud-provider
   optional: true
