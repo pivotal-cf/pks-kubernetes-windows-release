@@ -22,6 +22,14 @@ trap { $host.SetShouldExit(1) }
 
 function start_flanneld {
   <% etcd_endpoints = link('etcd').instances.map { |server| get_url(server, 2379) }.join(",") %>
+  <%
+    service_cidr = "10.100.200.0/24"
+    link('kube-apiserver').p('k8s-args').each do |flag, value|
+      if flag == "service-cluster-ip-range"
+        service_cidr = value
+      end
+    end
+  %>
 
   mkdir -force /etc/cni/net.d
   $confFile= '
@@ -35,7 +43,7 @@ function start_flanneld {
         "isDefaultGateway": true,
         "type": "<%= p('backend-type') %>",
         "dns": {
-          "nameservers": ["10.100.200.10"],
+          "nameservers": ["<%= p("kubedns-service-ip") %>"],
           "search": ["svc.cluster.local"]
         },
         "policies": [
@@ -44,8 +52,8 @@ function start_flanneld {
             "Value": {
               "Type": "OutBoundNAT",
               "ExceptionList": [
-                "<%= p('pod-network-cidr') %>",
-                "10.100.200.0/12",
+                "<%= link("flanneld").p('pod-network-cidr') %>",
+                "<%= service_cidr %>",
                 "<%= spec.ip.split(".")[0...-1].append(0).join(".") %>/24"
               ]
             }
@@ -54,7 +62,7 @@ function start_flanneld {
             "Name": "EndpointPolicy",
             "Value": {
               "Type": "ROUTE",
-              "DestinationPrefix": "10.100.200.0/24",
+              "DestinationPrefix": "<%= service_cidr %>",
               "NeedEncap": true
             }
           },

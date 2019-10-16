@@ -12,9 +12,9 @@ packages:
 - cni-windows
 
 properties:
-  pod-network-cidr:
-    description: The pod networking cidr for pod network overlay
-    default: "10.200.0.0/16"
+  kubedns-service-ip:
+    description: The service cluster IP for DNS, must reside within service-cluster-cidr set for kube-apiserver
+    default: "10.100.200.10"
   backend-type:
     description: The network backend to use
     default: "win-overlay"
@@ -28,6 +28,10 @@ properties:
 consumes:
 - name: etcd
   type: etcd
+- name: flanneld
+  type: flanneld
+- name: kube-apiserver
+  type: kube-apiserver
 
 provides:
 - name: flanneld-windows
