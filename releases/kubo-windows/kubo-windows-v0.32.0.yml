@@ -1,0 +1,41 @@
+name: kubo-windows
+version: v0.32.0
+commit_hash: e24ad84
+uncommitted_changes: false
+jobs:
+- name: flanneld-windows
+  version: 77d1e95da330471522c9e7696c737ed17671c42d
+  fingerprint: 77d1e95da330471522c9e7696c737ed17671c42d
+  sha1: bfaabf05af2735805183e7946c70b4724ca574f0
+- name: kube-proxy-windows
+  version: 9a054f3504a41ef022791e62ec1cdace7d41aeff
+  fingerprint: 9a054f3504a41ef022791e62ec1cdace7d41aeff
+  sha1: 47d2a54a214aa129207da672ddbbc03bdce38ef2
+- name: kubelet-windows
+  version: 590ad0e595d121f7689e9825e646eafba3be3b50
+  fingerprint: 590ad0e595d121f7689e9825e646eafba3be3b50
+  sha1: 807031c239f3737e2dab125108af458ec54f9c85
+- name: kubo-dns-aliases
+  version: 2e994586be47aa3fea9594217b4ab215ff877f94
+  fingerprint: 2e994586be47aa3fea9594217b4ab215ff877f94
+  sha1: debc9afc5956b83159710fe3813cf2b9effe5766
+packages:
+- name: cni-windows
+  version: e97b2c04e9676707112f079cbd2e770d88724d7e
+  fingerprint: e97b2c04e9676707112f079cbd2e770d88724d7e
+  sha1: 27c464bcf79f642c16096d35c163e7f5a6fe7d0a
+  dependencies: []
+- name: flanneld-windows
+  version: 7c81c7bccf5d79a97cdac1092735092c0c17fef0
+  fingerprint: 7c81c7bccf5d79a97cdac1092735092c0c17fef0
+  sha1: bbf1866b5f72a3b2a3294c5e6d0a3961fa323e44
+  dependencies: []
+- name: kubernetes-windows
+  version: bbee50d7c5c05b58f4debfcd8c327c7a8ad25b01
+  fingerprint: bbee50d7c5c05b58f4debfcd8c327c7a8ad25b01
+  sha1: eef1bc1275c7ea1a4346ced8ef074037140db237
+  dependencies: []
+license:
+  version: 936c4253d96cf63f8ace2f460b98376d0610beae
+  fingerprint: 936c4253d96cf63f8ace2f460b98376d0610beae
+  sha1: abf5a6ec5f7913d0f3312522e42f5be7f1115b82
