@@ -2,7 +2,7 @@
 name: print-kubo-windows-component-version
 
 templates:
-  run.erb: bin/run
+  run.erb: bin\run.ps1
 
 packages:
 - kubernetes-windows
