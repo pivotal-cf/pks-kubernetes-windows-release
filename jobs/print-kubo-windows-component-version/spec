@@ -1,0 +1,10 @@
+---
+name: print-kubo-windows-component-version
+
+templates:
+  run.erb: bin/run
+
+packages:
+- kubernetes-windows
+
+properties: {}
