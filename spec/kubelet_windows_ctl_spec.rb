@@ -11,8 +11,22 @@ def get_node_labels(rendered_kubelet_ctl)
 end
 
 describe 'kubelet_ctl' do
+  let(:link_spec) do {
+      'kube-apiserver' => {
+          'instances' => [],
+          'properties' => {
+              'tls-cipher-suites' => 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384'
+          }
+      },
+  }
+  end
+
   let(:rendered_template) do
-    compiled_template('kubelet-windows', 'bin/kubelet_ctl.ps1', {}, {}, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
+    compiled_template('kubelet-windows', 'bin/kubelet_ctl.ps1', {}, link_spec, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
+  end
+
+  it 'includes default tls-cipher-suites' do
+    expect(rendered_template).to include('--tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384')
   end
 
   it 'labels the kubelet with its own az' do
@@ -33,7 +47,8 @@ describe 'kubelet_ctl' do
         'node-labels' => 'foo=bar,k8s.node=custom'
       }
     }
-    rendered_kubelet_ctl = compiled_template('kubelet-windows', 'bin/kubelet_ctl.ps1', manifest_properties, {}, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
+    rendered_kubelet_ctl = compiled_template('kubelet-windows', 'bin/kubelet_ctl.ps1', manifest_properties, link_spec, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
+
     labels = get_node_labels(rendered_kubelet_ctl)
 
     expect(labels).to include('bosh.zone=z1')
@@ -48,7 +63,7 @@ describe 'kubelet_ctl' do
       'k8s-args' => {
       }
     }
-    rendered_kubelet_ctl = compiled_template('kubelet-windows', 'bin/kubelet_ctl.ps1', manifest_properties, {}, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
+    rendered_kubelet_ctl = compiled_template('kubelet-windows', 'bin/kubelet_ctl.ps1', manifest_properties, link_spec, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
     labels = get_node_labels(rendered_kubelet_ctl)
 
     expect(labels).to include('bosh.zone=z1')
