@@ -2,8 +2,11 @@ name: kubelet-windows
 templates:
   bin/drain.ps1.erb: bin/drain.ps1
   bin/kubelet_ctl.ps1.erb: bin/kubelet_ctl.ps1
+  bin/pre-start.ps1: bin/pre-start.ps1
+  bin/post-start.ps1: bin/post-start.ps1
   config/apiserver-ca.pem.erb: config/apiserver-ca.pem
   config/cloud-provider.ini.erb: config/cloud-provider.ini
+  config/file-arguments.json.erb: config/file-arguments.json
   config/kubeconfig-drain.erb: config/kubeconfig-drain
   config/kubeconfig.erb: config/kubeconfig
   config/kubelet-client-ca.pem.erb: config/kubelet-client-ca.pem
@@ -38,6 +41,11 @@ properties:
       k8s-args:
         address: 10.0.0.1
         docker-only: null
+  file-arguments:
+    description: "Pass-through options for Kubernetes runtime arguments which accept local file paths as inputs. See docs https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ for reference."
+    example: |
+      file-arguments:
+        azure-container-registry-config: base64 encoded config
   no_proxy:
     description: no_proxy env var for cloud provider interactions, i.e. for the kubelet
   tls.kubelet:
