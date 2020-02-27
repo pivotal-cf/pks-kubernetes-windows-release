@@ -18,6 +18,21 @@ if (-not $OldPath.Contains($AddedFolder)) {
 
 $mtx.ReleaseMutex()
 
+# Set env setting for proxy, akin to:
+# Proxy configuration
+
+<% if_link('docker') do |docker| %>
+<% docker.if_p('env.http_proxy') do |http_proxy| %>
+[System.Environment]::SetEnvironmentVariable("HTTP_PROXY", "<%= http_proxy %>", "User")
+<% end %>
+<% docker.if_p('env.https_proxy') do |https_proxy| %>
+[System.Environment]::SetEnvironmentVariable("HTTPS_PROXY", "<%= https_proxy %>", "User")
+<% end %>
+<% docker.if_p('env.no_proxy') do |no_proxy| %>
+[System.Environment]::SetEnvironmentVariable("NO_PROXY", "<%= no_proxy %>", "User")
+<% end %>
+<% end %>
+
 C:\var\vcap\packages\docker-windows\docker\dockerd --register-service
 
 Start-Service Docker
