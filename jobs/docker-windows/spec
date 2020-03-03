@@ -2,9 +2,14 @@
 name: docker-windows
 
 templates:
-  pre-start.ps1: bin/pre-start.ps1
+  bin/pre-start.ps1.erb: bin/pre-start.ps1
+  config/daemon.json.erb: config/daemon.json
 
 packages:
 - docker-windows
 
 properties:
+
+consumes:
+- name: docker
+  type: docker-tcp

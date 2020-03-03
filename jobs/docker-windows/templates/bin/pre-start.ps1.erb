@@ -18,12 +18,19 @@ if (-not $OldPath.Contains($AddedFolder)) {
 
 $mtx.ReleaseMutex()
 
-# TODO for now, hardcode proxy settings for testing; get values from link
+<% if_link('docker') do |docker| %>
+  # docker link present
+  <% docker.if_p('env.http_proxy') do |http_proxy| %>
+    SetX HTTP_PROXY "<%= http_proxy %>" /m
+  <% end %>
+  <% docker.if_p('env.https_proxy') do |https_proxy| %>
+    SetX HTTPS_PROXY "<%= https_proxy %>" /m
+  <% end %>
+  <% docker.if_p('env.no_proxy') do |no_proxy| %>
+    SetX NO_PROXY "<%= no_proxy %>" /m
+  <% end %>
+<% end %>
 
-SetX HTTP_PROXY "10.87.30.201:8888" /m
-SetX HTTPS_PROXY "10.87.30.201:8888" /m
-SetX NO_PROXY ".internal,.svc,.svc.cluster.local,.svc.cluster,192.167.20.0/16,192.168.20.0/16,10.87.30.0/24" /m
-
-C:\var\vcap\packages\docker-windows\docker\dockerd --register-service
+C:\var\vcap\packages\docker-windows\docker\dockerd --register-service --config-file "c:/var/vcap/jobs/docker-windows/config/daemon.json"
 
 Start-Service Docker
