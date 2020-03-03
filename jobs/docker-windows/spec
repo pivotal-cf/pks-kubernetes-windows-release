@@ -7,6 +7,10 @@ templates:
 packages:
 - docker-windows
 
+consumes:
+- name: docker
+  type: docker-tcp
+
 properties:
   env.http_proxy:
     description: "HTTP proxy that Docker should use"

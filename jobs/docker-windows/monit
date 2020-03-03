@@ -1,0 +1,10 @@
+{
+  "processes": [
+    {
+      "name": "dockerd",
+      "executable": "powershell",
+      "args": ["C:\\var\\vcap\\jobs\\docker-windows\\bin\\dockerd_ctl.ps1"],
+      "env": {}
+    }
+  ]
+}

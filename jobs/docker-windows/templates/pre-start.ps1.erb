@@ -33,6 +33,12 @@ $mtx.ReleaseMutex()
 <% end %>
 <% end %>
 
+# TODO for now, hardcode proxy settings for testing
+$env:HTTP_PROXY = "10.87.30.201:8888"
+$env:HTTPS_PROXY = "10.87.30.201:8888"
+$env:NO_PROXY = ".internal,.svc,.svc.cluster.local,.svc.cluster,192.167.20.0/16,192.168.20.0/16,10.87.30.0/24"
+[System.Environment]::SetEnvironmentVariable("HTTP_PROXY", "10.87.30.201:8888", "User")
+
 C:\var\vcap\packages\docker-windows\docker\dockerd --register-service
 
 Start-Service Docker
