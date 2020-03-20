@@ -1,8 +1,8 @@
 ---
 final_name: kubo-windows
 blobstore:
-  provider: s3
+  provider: gcs
   options:
-    bucket_name: kubo-release-windows-blobs
+    bucket_name: pks-kubo-release-windows-blobs
     region: us-east1
     host: storage.googleapis.com
