@@ -1,0 +1,41 @@
+name: kubo-windows
+version: 1.5.2-build.8-1.5.x
+commit_hash: 2e84983
+uncommitted_changes: false
+jobs:
+- name: flanneld-windows
+  version: 0c17d2e1e10b293efac9785d5748fbdc9be0c2be016e61d56e632ce7621c35a0
+  fingerprint: 0c17d2e1e10b293efac9785d5748fbdc9be0c2be016e61d56e632ce7621c35a0
+  sha1: sha256:0b43333f9b51bd209783a993825ddc96ac0fce4ee13abbc64676439001a12bec
+- name: kube-proxy-windows
+  version: f620a63137ee1dce7edc8a13aa85d094010ca743b745e64a2a6e6e798d05aab5
+  fingerprint: f620a63137ee1dce7edc8a13aa85d094010ca743b745e64a2a6e6e798d05aab5
+  sha1: sha256:f934ec140a18c49e82a22adfb1197ebcb746f9e25daf3276a5212a54bcec65aa
+- name: kubelet-windows
+  version: 550286e900d7997ffdf8d4934dfd871e8cb7dce5c98303c19e714059ecde923b
+  fingerprint: 550286e900d7997ffdf8d4934dfd871e8cb7dce5c98303c19e714059ecde923b
+  sha1: sha256:66a67700ab5a2969a6aafcfebd634dc413255ebb37567cc0ae884040b21f0405
+- name: kubo-dns-aliases
+  version: 0b18a6e6006651877e1df15d8c8f3b2e1e5a8ebf33f24622d5bad47bf2d91979
+  fingerprint: 0b18a6e6006651877e1df15d8c8f3b2e1e5a8ebf33f24622d5bad47bf2d91979
+  sha1: sha256:0c64a16f97a1800f5a3ccf200b04a294302cc8b357ba5bed0f52902d089bb55b
+packages:
+- name: cni-windows
+  version: 424ee252a52e8f6a6defb753ef4e8d3b6d6b8fdc99aac97168924b248820240d
+  fingerprint: 424ee252a52e8f6a6defb753ef4e8d3b6d6b8fdc99aac97168924b248820240d
+  sha1: sha256:be5be144ba6993c1768f763788039c887abb5f820bc288a7bd08c2dc6f840dac
+  dependencies: []
+- name: flanneld-windows
+  version: e8ef1cd01fd6336c9730b53cdddd610496a5ebd726819046ddf418b49d974333
+  fingerprint: e8ef1cd01fd6336c9730b53cdddd610496a5ebd726819046ddf418b49d974333
+  sha1: sha256:520a030c003d3b86ecc7593a52a2951479282951ac1bcbdca0e390c19a20605c
+  dependencies: []
+- name: kubernetes-windows
+  version: a32dce83a001dccfe9e31eaa17a3ff8ef8578c9d6e86f0c6234ef1f89f3dcf62
+  fingerprint: a32dce83a001dccfe9e31eaa17a3ff8ef8578c9d6e86f0c6234ef1f89f3dcf62
+  sha1: sha256:1c13d9f9078e6b7d4537a58e16e49bd4a13cbf0eda6fe842067ffbf10d899ced
+  dependencies: []
+license:
+  version: e11f9acd34abf885ffdd631f86b8d72b6cde9f489348ffb70d78a1356ee3cc06
+  fingerprint: e11f9acd34abf885ffdd631f86b8d72b6cde9f489348ffb70d78a1356ee3cc06
+  sha1: sha256:9df0f596fcb64341a6b637865f0423341033c2d005b17b0acc629628a37d5ae8
