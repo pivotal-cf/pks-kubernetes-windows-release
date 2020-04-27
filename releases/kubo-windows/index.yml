@@ -5,6 +5,8 @@ builds:
     version: 0.34.0
   4e9f03c2-a2a8-4fb4-66fe-99b6cc261cd9:
     version: 0.31.0
+  64c09990-8464-4c1d-5bf8-98b4b65eb3ee:
+    version: 1.6.2-build.2-1.6.x
   9a38b2b9-b7f9-4a8e-61d8-ad7ac92da9c9:
     version: 0.32.1
   a0a8d8ca-dbb1-46aa-4bc3-e72d39184f8d:
