@@ -1,6 +1,6 @@
 # Cloud Foundry Container Runtime (Windows)
 
-See [kubo-release](https://github.com/cloudfoundry-incubator/kubo-release) for
+See [pks-kubernetes-release](https://github.com/pivotal-cf/pks-kubernetes-release) for
 more details.
 
 This repo is a collection of the jobs, packages and scripts used for
