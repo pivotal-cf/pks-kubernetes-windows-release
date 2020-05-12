@@ -1,0 +1,54 @@
+name: kubo-windows
+version: 1.7.0-build.49-bump-kubernetes-1.16.9
+commit_hash: a05cd14
+uncommitted_changes: false
+jobs:
+- name: docker-windows
+  version: 1a746889e3b995dfe07f3a6ea70e99eead243d8cbdf2126db26d42386fd65fd7
+  fingerprint: 1a746889e3b995dfe07f3a6ea70e99eead243d8cbdf2126db26d42386fd65fd7
+  sha1: sha256:4580bf77ae9613581253455f2602b8ffcdcea8c4a0603cbd8a14b0bd1881037b
+- name: flanneld-windows
+  version: 47f50ca671f203e43b5c71e37ca7287dd9737d22d46919f2b4a78c4c1aca2d29
+  fingerprint: 47f50ca671f203e43b5c71e37ca7287dd9737d22d46919f2b4a78c4c1aca2d29
+  sha1: sha256:882dfb813f5d1354c3d86521f8d8f675cc8a1b443ef25c778df233171ef63b6f
+- name: kube-proxy-windows
+  version: 0a927db186e716fef89dfbff53d17e91298d554a38d6c0979dabb941e04af1d7
+  fingerprint: 0a927db186e716fef89dfbff53d17e91298d554a38d6c0979dabb941e04af1d7
+  sha1: sha256:a3a1515cbfb4f763ecd33c2608958e7085909c08d6611a6458c7b7deb70f80e6
+- name: kubelet-windows
+  version: 31caa788037fa81a6d24b51d0c5d9b4eb63e747bb18d85fa95282c2311328523
+  fingerprint: 31caa788037fa81a6d24b51d0c5d9b4eb63e747bb18d85fa95282c2311328523
+  sha1: sha256:93248bc33f45b685bbe31e653a1003905c31a6c19e5bcfff79328a18fb3958c1
+- name: kubo-dns-aliases
+  version: 0b18a6e6006651877e1df15d8c8f3b2e1e5a8ebf33f24622d5bad47bf2d91979
+  fingerprint: 0b18a6e6006651877e1df15d8c8f3b2e1e5a8ebf33f24622d5bad47bf2d91979
+  sha1: sha256:0c64a16f97a1800f5a3ccf200b04a294302cc8b357ba5bed0f52902d089bb55b
+- name: print-kubo-windows-component-version
+  version: 3325ca1e1817e02d7d61ac581e1a6e99b78bbbccb1fd43634d7b4a208be6bcf6
+  fingerprint: 3325ca1e1817e02d7d61ac581e1a6e99b78bbbccb1fd43634d7b4a208be6bcf6
+  sha1: sha256:fde1c97c13a2d627e58ad3ba9a87e7dd4848a6ecb48a061e10bac3e8316be9a5
+packages:
+- name: cni-windows
+  version: 424ee252a52e8f6a6defb753ef4e8d3b6d6b8fdc99aac97168924b248820240d
+  fingerprint: 424ee252a52e8f6a6defb753ef4e8d3b6d6b8fdc99aac97168924b248820240d
+  sha1: sha256:be5be144ba6993c1768f763788039c887abb5f820bc288a7bd08c2dc6f840dac
+  dependencies: []
+- name: docker-windows
+  version: a88e3cee7f344bf1918a55af465ae74879212122583bbc4f252dd20a6e9f50e0
+  fingerprint: a88e3cee7f344bf1918a55af465ae74879212122583bbc4f252dd20a6e9f50e0
+  sha1: sha256:2dc80578d62fa2db0ed4ea54dbccd289f1ee48f40882e2e1f5c05f597107345e
+  dependencies: []
+- name: flanneld-windows
+  version: 23e6f8d7c0c175e035d6ac99e2f182957b8911666335d9e3f04c007152bd456d
+  fingerprint: 23e6f8d7c0c175e035d6ac99e2f182957b8911666335d9e3f04c007152bd456d
+  sha1: sha256:a160a9252db741b5aaa23b787084851dcc6c2fc8ff5a468a715ae4634d0d1c9b
+  dependencies: []
+- name: kubernetes-windows
+  version: f445ff70968a28c7a32a47c2d6091506e82f83b9678277630a15aa5e8686f892
+  fingerprint: f445ff70968a28c7a32a47c2d6091506e82f83b9678277630a15aa5e8686f892
+  sha1: sha256:f6931802aae26f81b69f8dbb68527031ad45e817727dfbd24eb5185e5e636e91
+  dependencies: []
+license:
+  version: e11f9acd34abf885ffdd631f86b8d72b6cde9f489348ffb70d78a1356ee3cc06
+  fingerprint: e11f9acd34abf885ffdd631f86b8d72b6cde9f489348ffb70d78a1356ee3cc06
+  sha1: sha256:9df0f596fcb64341a6b637865f0423341033c2d005b17b0acc629628a37d5ae8
