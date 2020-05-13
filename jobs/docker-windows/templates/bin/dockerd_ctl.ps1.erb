@@ -17,28 +17,23 @@ if (-not $OldPath.Contains($AddedFolder)) {
 $mtx.ReleaseMutex()
 
 
-# Proxy configuration is set via env vars
+# Proxy configuration is set via env vars, if the docker link is present
 <% if_link('docker') do |docker| %>
-  # docker link present
   <% docker.if_p('env.http_proxy') do |http_proxy| %>
-    $env:HTTP_PROXY = <%= http_proxy %>
-    # SetX HTTP_PROXY "<%= http_proxy %>" /m
+    $env:HTTP_PROXY = "<%= http_proxy %>"
   <% end %>
   <% docker.if_p('env.https_proxy') do |https_proxy| %>
-    $env:HTTPS_PROXY = <%= https_proxy %>
-    # SetX HTTPS_PROXY "<%= https_proxy %>" /m
+    $env:HTTPS_PROXY = "<%= https_proxy %>"
   <% end %>
   <% docker.if_p('env.no_proxy') do |no_proxy| %>
-    $env:NO_PROXY = <%= no_proxy %>
-    # SetX NO_PROXY "<%= no_proxy %>" /m
+    $env:NO_PROXY = "<%= no_proxy %>"
   <% end %>
 <% end %>
 
 
 # Echo values to stdout for troubleshooting
-"HTTP_PROXY=%HTTP_PROXY%"
-"HTTPS_PROXY=%HTTPS_PROXY%"
-"NO_PROXY=%NO_PROXY%"
+"HTTP_PROXY=$env:HTTP_PROXY"
+"HTTPS_PROXY=$env:HTTPS_PROXY"
+"NO_PROXY=$env:NO_PROXY"
 
-C:\var\vcap\packages\docker-windows\docker\dockerd
-# --config-file "c:/var/vcap/jobs/docker-windows/config/daemon.json"
+C:\var\vcap\packages\docker-windows\docker\dockerd --config-file "c:/var/vcap/jobs/docker-windows/config/daemon.json"
