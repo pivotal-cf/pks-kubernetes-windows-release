@@ -1,0 +1,44 @@
+$ErrorActionPreference = "Stop";
+trap { $host.SetShouldExit(1) }
+
+# Add docker dir to the PATH using a Mutex
+$mtx = New-Object System.Threading.Mutex($false, "PathMutex")
+if (!$mtx.WaitOne(300000)) {
+  throw "Could not acquire PATH mutex"
+}
+
+$AddedFolder= "C:\var\vcap\packages\docker-windows\docker\"
+$OldPath=(Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
+if (-not $OldPath.Contains($AddedFolder)) {
+  $NewPath=$OldPath+';'+$AddedFolder
+  Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
+}
+
+$mtx.ReleaseMutex()
+
+
+# Proxy configuration is set via env vars
+<% if_link('docker') do |docker| %>
+  # docker link present
+  <% docker.if_p('env.http_proxy') do |http_proxy| %>
+    $env:HTTP_PROXY = <%= http_proxy %>
+    # SetX HTTP_PROXY "<%= http_proxy %>" /m
+  <% end %>
+  <% docker.if_p('env.https_proxy') do |https_proxy| %>
+    $env:HTTPS_PROXY = <%= https_proxy %>
+    # SetX HTTPS_PROXY "<%= https_proxy %>" /m
+  <% end %>
+  <% docker.if_p('env.no_proxy') do |no_proxy| %>
+    $env:NO_PROXY = <%= no_proxy %>
+    # SetX NO_PROXY "<%= no_proxy %>" /m
+  <% end %>
+<% end %>
+
+
+# Echo values to stdout for troubleshooting
+"HTTP_PROXY=%HTTP_PROXY%"
+"HTTPS_PROXY=%HTTPS_PROXY%"
+"NO_PROXY=%NO_PROXY%"
+
+C:\var\vcap\packages\docker-windows\docker\dockerd
+# --config-file "c:/var/vcap/jobs/docker-windows/config/daemon.json"

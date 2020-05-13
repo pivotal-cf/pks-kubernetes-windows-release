@@ -2,7 +2,7 @@
 name: docker-windows
 
 templates:
-  bin/pre-start.ps1.erb: bin/pre-start.ps1
+  bin/dockerd_ctl.ps1.erb: bin/dockerd_ctl.ps1
   config/daemon.json.erb: config/daemon.json
 
 packages:
