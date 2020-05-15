@@ -2,8 +2,9 @@
 name: docker-windows
 
 templates:
-  bin/dockerd_ctl.ps1.erb: bin/dockerd_ctl.ps1
+  pre-start.ps1.erb: bin/pre-start.ps1
   config/daemon.json.erb: config/daemon.json
+  monit.erb: monit
 
 packages:
 - docker-windows
