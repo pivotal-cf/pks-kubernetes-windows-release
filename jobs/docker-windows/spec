@@ -2,7 +2,7 @@
 name: docker-windows
 
 templates:
-  pre-start.ps1.erb: bin/pre-start.ps1
+  pre-start.ps1: bin/pre-start.ps1
   config/daemon.json.erb: config/daemon.json
   monit.erb: monit
 
