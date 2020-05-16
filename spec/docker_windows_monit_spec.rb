@@ -18,11 +18,12 @@ describe 'docker_pre-start' do
   end
 
   let(:rendered_template) do
-    compiled_template('docker-windows', 'bin/pre-start.ps1', {}, link_spec, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
+    compiled_template('docker-windows', 'monit', {}, link_spec, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
   end
 
   it 'configures the proxy' do
-    expect(rendered_template).to include('SetX HTTP_PROXY "http://user:pa$word@127.0.0.1:1234" /m')
+    expect(rendered_template).to include('"HTTP_PROXY": "http://user:pa$word@127.0.0.1:1234",')
+    expect(rendered_template).to include('"HTTPS_PROXY": "https://user:pa$word@127.0.0.1:1234",')
   end
 
 end
