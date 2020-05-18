@@ -4,7 +4,6 @@ name: docker-windows
 templates:
   bin/pre-start.ps1: bin/pre-start.ps1
   config/daemon.json.erb: config/daemon.json
-  monit.erb: monit
 
 packages:
 - docker-windows
