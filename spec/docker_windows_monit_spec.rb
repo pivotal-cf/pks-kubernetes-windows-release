@@ -18,7 +18,7 @@ describe 'docker_pre-start' do
   end
 
   let(:rendered_template) do
-    compiled_template('docker-windows', 'monit', {}, link_spec, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
+    compiled_monit_template('docker-windows', 'monit', {}, link_spec, {}, 'z1', 'fake-bosh-ip', 'fake-bosh-id')
   end
 
   it 'configures the proxy' do
