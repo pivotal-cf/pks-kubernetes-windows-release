@@ -2,8 +2,8 @@
   "processes": [
     {
       "name": "dockerd",
-      "executable": "C:\var\vcap\packages\docker-windows\docker\dockerd",
-      "args": ["--config-file c:/var/vcap/jobs/docker-windows/config/daemon.json"],
+      "executable": "/var/vcap/packages/docker-windows/docker/dockerd",
+      "args": ["--config-file", "/var/vcap/jobs/docker-windows/config/daemon.json"],
       "env": {
 <% if_link('docker') do |docker| %>
   <% docker.if_p('env.http_proxy') do |http_proxy| %>
