@@ -27,6 +27,8 @@ builds:
     version: 1.9.0-build.6
   d6eeb156-5ebb-4951-5631-39c269d598e3:
     version: 0.40.0
+  dcebb5f9-d193-4be6-53c8-6a4d4563832a:
+    version: 1.9.0-build.14-vsphere-flannel-proxy
   f52d4994-1835-4c3a-55e9-a3df6d24bb4c:
     version: 0.39.0
 format-version: "2"
