@@ -1,6 +1,12 @@
 $ErrorActionPreference = "Stop";
 trap { $host.SetShouldExit(1) }
 
+#remove pid file if one exists from previous running docker
+$DockerPidPath = "C:\ProgramData\docker\docker.pid"
+if (Test-Path $DockerPidPath) {
+  rm $DockerPidPath 
+}
+
 # Add docker dir to the PATH using a Mutex
 $mtx = New-Object System.Threading.Mutex($false, "PathMutex")
 if (!$mtx.WaitOne(300000)) {
