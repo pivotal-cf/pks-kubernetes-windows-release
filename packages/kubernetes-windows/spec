@@ -2,5 +2,5 @@
 name: kubernetes-windows
 
 files:
-- kubernetes-windows-1.16.9/*
+- kubernetes-windows-1.16.10/*
 - exiter.ps1
