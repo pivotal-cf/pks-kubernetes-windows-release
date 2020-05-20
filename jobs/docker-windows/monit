@@ -4,6 +4,10 @@
       "name": "dockerd",
       "executable": "/var/vcap/packages/docker-windows/docker/dockerd",
       "args": ["--config-file", "/var/vcap/jobs/docker-windows/config/daemon.json"],
+     "stop": {
+        "executable": "powershell.exe",
+        "args": [ "/var/vcap/jobs/docker-windows/bin/stop-docker.ps1" ]
+        },
       "env": {
 <% if_link('docker') do |docker| %>
   <% docker.if_p('env.http_proxy') do |http_proxy| %>
