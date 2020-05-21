@@ -2,6 +2,7 @@ $ErrorActionPreference = "Stop";
 trap { $host.SetShouldExit(1) }
 
 #remove pid file if one exists from previous running docker
+#TODO check if dockerd proccess is running as well
 $DockerPidPath = "C:\ProgramData\docker\docker.pid"
 if (Test-Path $DockerPidPath) {
   rm $DockerPidPath 
