@@ -1,7 +1,7 @@
-cni/cni-plugins-windows-amd64-v0.8.6.tgz:
-  size: 13494474
-  object_id: e6c83c92-7fad-4ec8-47a5-171a6bd3534f
-  sha: d2afab415f3dfd3ad10e0aac5f7dcb45dae8942c
+cni/cni-plugins-windows-amd64-c74e0e996.tgz:
+  size: 9678154
+  object_id: da0e8048-675b-4701-68e9-7db89e88723b
+  sha: 02c4d67a17a28c26cc471e56bf01dcacd104b346
 docker-windows/docker-19-03-5.zip:
   size: 127550095
   object_id: 5e630d58-cedf-4efc-4a94-0735c44294f7
