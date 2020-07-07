@@ -23,6 +23,8 @@ builds:
     version: 1.8.0-build.22-bump-kubernetes-1.17.8
   d6eeb156-5ebb-4951-5631-39c269d598e3:
     version: 0.40.0
+  e55893a7-72bd-4053-541e-0a35d6ba68c3:
+    version: 1.8.0-build.23-1.8.x
   f52d4994-1835-4c3a-55e9-a3df6d24bb4c:
     version: 0.39.0
 format-version: "2"
