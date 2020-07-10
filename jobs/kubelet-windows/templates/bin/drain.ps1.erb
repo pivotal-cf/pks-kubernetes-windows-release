@@ -13,7 +13,8 @@ function Log-Err ($message) {
 
 function main {
   if (kubelet_is_running) {
-    Retry-Command $function:drain_kubelet drain_kubelet
+    Retry-Command $function:cordon_node cordon_node
+    $function:drain_kubelet.Invoke()
     # watch_disks TODO(BM/LH): implement this?
     Retry-Command $function:delete_drained_node delete_drained_node
   }
@@ -21,27 +22,83 @@ function main {
   echo "0"
 }
 
-function drain_kubelet() {
+function cordon_node() {
+  Log-Out ("[{0}] run {1}" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), "cordon_node")
   Try {
-    $ErrorActionPreference = "Stop";
-    $nodes=(/var/vcap/packages/kubernetes-windows/bin/kubectl `
-    --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain `
-    get nodes -o json | ConvertFrom-Json).Items
-    Log-Out (/var/vcap/packages/kubernetes-windows/bin/kubectl `
-      --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain `
-      get nodes -o wide)
-
-    $node_name=($nodes | ? { $_.metadata.labels."bosh.id" -eq "<%= spec.id %>" }).metadata.name
-
-    if (!$node_name) {
-      Log-Out "Node name is empty"
-      return
-    }
     /var/vcap/packages/kubernetes-windows/bin/kubectl `
-      --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain drain "${node_name}" `
-      --grace-period 10 --force --delete-local-data --ignore-daemonsets | Out-File -Append -Encoding ASCII $OutLog
-    return
-  } Catch [System.Exception] {
+      --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain `
+      cordon -l "bosh.id=<%= spec.id %>" | Out-File -Append -Encoding ASCII $OutLog
+  } Catch {
+    Log-Err $_.Exception.Message
+    Log-Err $_.InvocationInfo.PositionMessage
+    Log-Err $_.ScriptStackTrace
+    Write-Error "Exception"
+  }
+}
+
+function drain_kubelet() {
+  Log-Out ("[{0}] run {1}" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), "drain_kubelet")
+  Try {
+    $kubelet_args = @()
+    $kubelet_args += "--kubeconfig"
+    $kubelet_args += "/var/vcap/jobs/kubelet-windows/config/kubeconfig-drain"
+    $kubelet_args += "-l"
+    $kubelet_args += "bosh.id=<%= spec.id %>"
+    $kubelet_args += "--grace-period"
+    $kubelet_args += "<%= p("kubelet-drain-grace-period") %>"
+    $kubelet_args += "--timeout"
+    $kubelet_args += "<%= p("kubectl-drain-timeout") %>"
+
+    <% if_p("kubelet-drain-force") do |prop| %>
+      <% if prop %>
+      $kubelet_args += "--force"
+      <% end %>
+    <% end %>
+
+    <% if_p("kubelet-drain-ignore-daemonsets") do |prop| %>
+      <% if prop %>
+      $kubelet_args += "--ignore-daemonsets"
+      <% end %>
+    <% end %>
+
+    <% if_p("kubelet-drain-delete-local-data") do |prop| %>
+      <% if prop %>
+      $kubectl_args+= "--delete-local-data"
+      <% end %>
+    <% end %>
+
+    /var/vcap/packages/kubernetes-windows/bin/kubectl drain $kubelet_args | Out-File -Append -Encoding ASCII $OutLog
+
+  } Catch {
+    Log-Err $_.Exception.Message
+    Log-Err $_.InvocationInfo.PositionMessage
+    Log-Err $_.ScriptStackTrace
+    <% if_p("kubelet-drain-force-node") do |prop| %>
+      <% if prop %>
+      $function:force_kill_pods.Invoke()
+      <% else %>
+      Write-Error "Exception"
+      <% end %>
+    <% end %>
+  }
+}
+
+function force_kill_pods() {
+  Log-Out ("[{0}] Forcefully draining the node" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
+  Try {
+    $node_name=(/var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain get node -l "bosh.id=<%= spec.id %>" -o jsonpath="{.items[:].metadata.name}")
+    $namespaces=@((/var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain get pods --all-namespaces --field-selector spec.nodeName=${node_name} -o jsonpath="{.items[:].metadata.namespace}") -split " " | sort -unique)
+
+    foreach ($namespace in $namespaces) {
+      Log-Out "namespace: $namespace"
+      $podnames=@( (/var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain get pods -n=${namespace} --field-selector spec.nodeName=${node_name} -o jsonpath="{.items[:].metadata.name}") )
+      foreach ($pod_name in $podnames) {
+        Log-Out "Force Deleting pod ${pod_name}"
+        /var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain delete pods ${pod_name} `
+          --namespace ${namespace} --grace-period=0 --force | Out-File -Append -Encoding ASCII $OutLog
+      }
+    }
+  } Catch {
     Log-Err $_.Exception.Message
     Log-Err $_.InvocationInfo.PositionMessage
     Log-Err $_.ScriptStackTrace
@@ -50,25 +107,11 @@ function drain_kubelet() {
 }
 
 function delete_drained_node() {
+  Log-Out ("[{0}] run {1}" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), "delete_drained_node")
   Try {
-    $ErrorActionPreference = "Stop";
-    $nodes=(/var/vcap/packages/kubernetes-windows/bin/kubectl `
-      --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain `
-      get nodes -o json | ConvertFrom-Json).Items
-    Log-Out (/var/vcap/packages/kubernetes-windows/bin/kubectl `
-      --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain `
-      get nodes -o wide)
-
-    $node_name=($nodes | ? { $_.metadata.labels."bosh.id" -eq "<%= spec.id %>" }).metadata.name
-
-    if (!$node_name) {
-      Log-Out "Node name is empty"
-      return
-    }
     /var/vcap/packages/kubernetes-windows/bin/kubectl `
-      --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain delete node "${node_name}" `
+      --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain delete node -l "bosh.id=<%= spec.id %>" `
       --ignore-not-found | Out-File -Append -Encoding ASCII $OutLog
-    return
   } Catch {
     Log-Err $_.Exception.Message
     Log-Err $_.InvocationInfo.PositionMessage
@@ -98,11 +141,11 @@ function Retry-Command {
   }
 
   Process {
-    Log-Out ("[{0}] run {1}" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), $CommandName)
     do {
       $cnt++
       try {
         $ScriptBlock.Invoke()
+        Log-Out ("[{0}] Successfully {1}" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), $CommandName)
         return
       } Catch {
           Log-Err ("[{0}] Unsuccessful {1}, retrying attempt {2} out of {3}" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), $CommandName, $cnt, $Maximum)
