@@ -19,6 +19,6 @@ kubernetes-windows-1.17.5/kubectl.exe:
   object_id: 2c9a2a78-b124-46f8-7e08-95e4b5ab5251
   sha: 7668c95ce92269991fb2474dae12333525ed4612
 kubernetes-windows-1.17.5/kubelet.exe:
-  size: 145523200
-  object_id: 7d371191-03af-4b79-578e-75f5d64235eb
-  sha: 9bd5d472be446f9bb4f134d5ce0cb503655547ad
+  size: 145523712
+  object_id: 156562e9-2c63-400e-4a8e-fa5fd1cd40a6
+  sha: 8c6ca39555a505d8f244ce0d35f03ac59a17b2a2
