@@ -57,7 +57,7 @@ properties:
   tls.kubelet-client-ca.certificate:
     description: CA certificate of the authority granting access to kubelet server
   tls.kubernetes:
-    description: Certificate and private key for the Kubernetes master
+    description: Certificate and private key for the Kubernetes control plane
   cni_init_file:
     description: "File used by kubelet to check if cni is initialized"
     default: "/run/flannel/subnet.env"
