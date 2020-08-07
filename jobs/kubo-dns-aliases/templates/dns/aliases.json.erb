@@ -11,6 +11,7 @@ def get_etcd_alias(server)
   "#{node_name}.#{link('etcd').p('etcd.dns_suffix')}"
 end
 
+#TODO: when we have new https certs, rename from master to something else
 master_node_dns = link('kube-apiserver').address
 aliases = { 'master.cfcr.internal' => [ wildcard_name(master_node_dns) ] }
 
