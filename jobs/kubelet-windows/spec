@@ -1,6 +1,7 @@
 name: kubelet-windows
 templates:
   bin/drain.ps1.erb: bin/drain.ps1
+  bin/invoke-process.ps1: bin/invoke-process.ps1
   bin/kubelet_ctl.ps1.erb: bin/kubelet_ctl.ps1
   bin/pre-start.ps1: bin/pre-start.ps1
   bin/post-start.ps1: bin/post-start.ps1
