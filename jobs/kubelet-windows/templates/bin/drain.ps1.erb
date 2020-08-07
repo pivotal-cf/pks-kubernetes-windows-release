@@ -3,6 +3,8 @@ $ErrorActionPreference = "Stop";
 $OutLog = "C:\var\vcap\sys\log\kubelet-windows\drain.stdout.log"
 $ErrLog = "C:\var\vcap\sys\log\kubelet-windows\drain.stderr.log"
 
+. "C:\var\vcap\jobs\kubelet-windows\bin\invoke-process.ps1"
+
 function Log-Out ($message) {
   $message | Out-File -Append -Encoding ASCII $OutLog
 }
@@ -14,7 +16,7 @@ function Log-Err ($message) {
 function main {
   if (kubelet_is_running) {
     Retry-Command $function:cordon_node cordon_node
-    $function:drain_kubelet.Invoke()
+    drain_kubelet
     # watch_disks TODO(BM/LH): implement this?
     Retry-Command $function:delete_drained_node delete_drained_node
   }
@@ -67,7 +69,7 @@ function drain_kubelet() {
       <% end %>
     <% end %>
 
-    /var/vcap/packages/kubernetes-windows/bin/kubectl drain $kubelet_args | Out-File -Append -Encoding ASCII $OutLog
+    Invoke-Process "/var/vcap/packages/kubernetes-windows/bin/kubectl" "drain $kubelet_args" | Out-File -Append -Encoding ASCII $OutLog
 
   } Catch {
     Log-Err $_.Exception.Message
