@@ -18,7 +18,7 @@ properties:
   cloud-provider:
     description: The type of cloud-provider that is being deployed
   tls.kubernetes:
-    description: Certificate and private key for the Kubernetes master
+    description: Certificate and private key for the Kubernetes control plane
   kube-proxy-configuration:
     description: The Kube-proxy will load its initial configuration from this.
       Omit this to use the built-in default configuration values.
