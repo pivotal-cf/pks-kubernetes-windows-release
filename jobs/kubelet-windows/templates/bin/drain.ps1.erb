@@ -93,11 +93,12 @@ function force_kill_pods() {
 
     foreach ($namespace in $namespaces) {
       Log-Out "namespace: $namespace"
-      $podnames=@( (/var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain get pods -n=${namespace} --field-selector spec.nodeName=${node_name} -o jsonpath="{.items[:].metadata.name}") )
+      $podnames=@((/var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain get pods -n="${namespace}" --field-selector spec.nodeName="${node_name}" -o jsonpath="{.items[:].metadata.name}"))
       foreach ($pod_name in $podnames) {
         Log-Out "Force Deleting pod ${pod_name}"
-        /var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain delete pods ${pod_name} `
-          --namespace ${namespace} --grace-period=0 --force | Out-File -Append -Encoding ASCII $OutLog
+        Invoke-Process  "/var/vcap/packages/kubernetes-windows/bin/kubectl" `
+          "--kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain delete pods ${pod_name} --namespace ${namespace} --grace-period=0 --force" `
+          | Out-File -Append -Encoding ASCII $OutLog
       }
     }
   } Catch {
