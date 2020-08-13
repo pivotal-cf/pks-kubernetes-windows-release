@@ -1,3 +1,5 @@
+# turn the sanPolicy to OnlineAll so that pvc could work properly
+Set-StorageSetting -NewDiskPolicy OnlineAll
 # Reads file-arguments.json, decodes base64 encoded values
 # and writes the output to a file named after the associated key.
 $base_path = 'C:\var\vcap\jobs\kubelet-windows'
