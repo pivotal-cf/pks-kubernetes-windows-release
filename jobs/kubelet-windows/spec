@@ -1,6 +1,7 @@
 name: kubelet-windows
 templates:
   bin/drain.ps1.erb: bin/drain.ps1
+  bin/invoke-process.ps1: bin/invoke-process.ps1
   bin/kubelet_ctl.ps1.erb: bin/kubelet_ctl.ps1
   bin/pre-start.ps1: bin/pre-start.ps1
   bin/post-start.ps1: bin/post-start.ps1
@@ -35,6 +36,24 @@ properties:
     description: The Kubelet will load its initial configuration from this.
       Omit this to use the built-in default configuration values.
       Command-line flags override configuration.
+  kubectl-drain-timeout:
+    description: "The length of time to wait before giving up draining a node, zero means infinite"
+    default: "0s"
+  kubelet-drain-grace-period:
+    description: "Period of time in seconds given to each pod to terminate gracefully. If negative, the default value specified in the pod will be used."
+    default: "10"
+  kubelet-drain-force:
+    description: "Continue drain even if there are pods not managed by a ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet."
+    default: true
+  kubelet-drain-ignore-daemonsets:
+    description: "Ignore DaemonSet-managed pods during drain"
+    default: true
+  kubelet-drain-delete-local-data:
+    description: "Continue drain even if there are pods using emptyDir (local data that will be deleted when the node is drained)"
+    default: true
+  kubelet-drain-force-node:
+    description: "Forcibly terminate pods if all the pods fail to drain before the timeout."
+    default: false
   k8s-args:
     description: "Pass-through options for Kubernetes runtime arguments. See docs https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ for reference."
     example: |

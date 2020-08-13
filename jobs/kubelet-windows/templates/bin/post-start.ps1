@@ -27,3 +27,5 @@ function retry($name, $func) {
   Write-Output "Failed all retry attempts for $name"
   return $false
 }
+
+main
