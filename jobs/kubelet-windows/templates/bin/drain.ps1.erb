@@ -16,7 +16,7 @@ function Log-Err ($message) {
 function main {
   if (kubelet_is_running) {
     Retry-Command $function:cordon_node cordon_node
-    drain_kubelet
+    Retry-Command $function:drain_kubelet drain_kubelet
     # watch_disks TODO(BM/LH): implement this?
     Retry-Command $function:delete_drained_node delete_drained_node
   }
@@ -77,7 +77,7 @@ function drain_kubelet() {
     Log-Err $_.ScriptStackTrace
     <% if_p("kubelet-drain-force-node") do |prop| %>
       <% if prop %>
-      $function:force_kill_pods.Invoke()
+      Retry-Command $function:force_kill_pods force_kill_pods
       <% else %>
       Write-Error "Exception"
       <% end %>
