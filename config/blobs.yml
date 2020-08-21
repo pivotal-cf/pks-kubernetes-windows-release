@@ -2,10 +2,10 @@ cni/cni-plugins-windows-amd64-c74e0e996.tgz:
   size: 9678154
   object_id: da0e8048-675b-4701-68e9-7db89e88723b
   sha: 02c4d67a17a28c26cc471e56bf01dcacd104b346
-docker-windows/docker-19-03-5.zip:
-  size: 127550095
-  object_id: 5e630d58-cedf-4efc-4a94-0735c44294f7
-  sha: sha256:4ce8e7df20cfa7bfc6e7733f79d5dda4fda7aec3606168adfc8ea3f50261fdab
+docker-windows/docker-19-03-11.zip:
+  size: 90041122
+  object_id: 7c77248c-6e0d-4277-5634-3b4ac9d2c4b5
+  sha: 929a35ae9624e0a616b5ae128b28c3d31252804c
 flannel-v0.11.0-44-g3f87efc4-windows-amd64.tar.gz:
   size: 9548976
   object_id: 1a947dbf-c668-4e34-63c8-63d1aaa715d4
