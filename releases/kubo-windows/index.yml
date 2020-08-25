@@ -3,6 +3,8 @@ builds:
     version: 0.38.0
   05237c1a-0a2f-4133-790d-a5567ba66d7d:
     version: 0.34.0
+  0b61126d-6b49-4046-6441-edd55bededa9:
+    version: 1.9.0-build.28-bump-kubernetes-1.18.8
   4d311bbf-8396-4d5e-7d07-66a64049be71:
     version: 1.9.0-build.3
   4e9f03c2-a2a8-4fb4-66fe-99b6cc261cd9:
