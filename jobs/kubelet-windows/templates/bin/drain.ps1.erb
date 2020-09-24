@@ -51,6 +51,7 @@ function watch_disks() {
     Log-Out ("[{0}] {1} disks still attached" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), $RemainDisks)
     Start-Sleep -Milliseconds 5000
   } while ($true)
+  Log-Out ("[{0}] no attached PV" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
 }
 
 function drain_kubelet() {
