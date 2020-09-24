@@ -40,14 +40,14 @@ function cordon_node() {
 
 function watch_disk() {
   ## Need to wait for disks to all be detached first
+  Log-Out ("[{0}] Checking remaining disks" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
   do {
-    Log-Out ("[{0}] Checking remaining disks" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
     ## assumption is that current VM has two disks by default, device 0 and 1, others are all created by k8s
     $RemainDisks = (Get-Disk | Where-Object {($_.Number -ne "0" ) -and ($_.Number -ne "1")} | Measure-Object | Select-Object Count).count
     if ( $RemainDisks -eq 0 ){
       return
     }
-    Log-Out ("[{0}] disks remaining: {1}", -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), $RemainDisks)
+    Log-Out ("[{0}] {1} disks still attached", -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), $RemainDisks)
     Start-Sleep -Milliseconds 10000
   } while ($true)
 }
