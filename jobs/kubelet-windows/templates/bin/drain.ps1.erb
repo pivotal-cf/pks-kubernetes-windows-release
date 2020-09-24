@@ -48,7 +48,7 @@ function watch_disk() {
       return
     }
     Log-Out ("[{0}] {1} disks still attached", -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), $RemainDisks)
-    Start-Sleep -Milliseconds 10000
+    Start-Sleep -Milliseconds 5000
   } while ($true)
 }
 
