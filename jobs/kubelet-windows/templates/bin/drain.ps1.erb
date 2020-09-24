@@ -42,6 +42,7 @@ function watch_disk() {
   ## Need to wait for disks to all be detached first
   do {
     Log-Out ("[{0}] Checking remaining disks" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
+    ## assumption is that current VM has two disks by default, device 0 and 1, others are all created by k8s
     $RemainDisks = (Get-Disk | Where-Object {($_.Number -ne "0" ) -and ($_.Number -ne "1")} | Measure-Object | Select-Object Count).count
     if ( $RemainDisks -eq 0 ){
       return
