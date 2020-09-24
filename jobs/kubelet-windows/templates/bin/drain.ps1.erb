@@ -17,7 +17,7 @@ function main {
   if (kubelet_is_running) {
     Retry-Command $function:cordon_node cordon_node
     Retry-Command $function:drain_kubelet drain_kubelet
-    # watch_disks TODO(BM/LH): implement this?
+    watch_disks
     Retry-Command $function:delete_drained_node delete_drained_node
   }
 
@@ -36,6 +36,19 @@ function cordon_node() {
     Log-Err $_.ScriptStackTrace
     Write-Error "Exception"
   }
+}
+
+function watch_disk() {
+  ## Need to wait for disks to all be detached first
+  do {
+    Log-Out ("[{0}] Checking remaining disks" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
+    $RemainDisks = (Get-Disk | Where-Object {($_.Number -ne "0" ) -and ($_.Number -ne "1")} | Measure-Object | Select-Object Count).count
+    if ( $RemainDisks -eq 0 ){
+      return
+    }
+    Log-Out ("[{0}] disks remaining: {1}", -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"), $RemainDisks)
+    Start-Sleep -Milliseconds 10000
+  } while ($true)
 }
 
 function drain_kubelet() {
