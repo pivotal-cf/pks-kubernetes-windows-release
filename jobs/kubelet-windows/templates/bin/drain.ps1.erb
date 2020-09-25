@@ -41,9 +41,12 @@ function cordon_node() {
 function watch_disks() {
   ## Need to wait for disks to all be detached first
   Log-Out ("[{0}] checking for attached PVs..." -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
+  Log-Out ("[{0}] read non-k8s disk info from file" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
+  $Path = "/var/vcap/jobs/kubelet-windows/config/disk_info"
+  $DiskInfo = Get-Content $Path
   do {
     ## assumption is that current VM has two disks by default, device 0 and 1, others are all created by k8s
-    $RemainDisks = (Get-Disk | Where-Object {($_.Number -ne "0" ) -and ($_.Number -ne "1")} | Measure-Object | Select-Object Count).count
+    $RemainDisks = (Get-Disk | Where-Object {($_.Number -notIn $DiskInfo )} | Measure-Object | Select-Object Count).count
     if ( $RemainDisks -eq 0 ){
       Log-Out ("[{0}] no attached PV" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
       return

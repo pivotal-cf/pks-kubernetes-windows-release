@@ -11,3 +11,18 @@ foreach($property in $properties) {
     $decoded = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($file_args_dict."$property"))
     $decoded | Out-File -FilePath "$base_path\config\$property"
 }
+
+## Get disk info and store inside local file
+
+$FolderPath = "/var/vcap/jobs/kubelet-windows/config/"
+$FileName = "disk_info"
+$Path = $FolderPath + $FileName
+if (!(Test-Path $Path))
+{
+    New-Item -itemType File -Path $FolderPath -Name $FileName
+    (Get-Disk | select Number).Number | Out-File -Append -Encoding ASCII $Path
+}
+else
+{
+    Write-Host "$FileName File already exists"
+}
