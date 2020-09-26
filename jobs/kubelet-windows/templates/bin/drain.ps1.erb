@@ -83,7 +83,7 @@ function drain_kubelet() {
 
     <% if_p("kubelet-drain-delete-local-data") do |prop| %>
       <% if prop %>
-      $kubectl_args+= "--delete-local-data"
+      $kubectl_args += "--delete-local-data"
       <% end %>
     <% end %>
 
