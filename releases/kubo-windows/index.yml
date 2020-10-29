@@ -11,6 +11,8 @@ builds:
     version: 1.9.0-build.3
   4e9f03c2-a2a8-4fb4-66fe-99b6cc261cd9:
     version: 0.31.0
+  5248919a-0a43-4558-4590-0e3babf38044:
+    version: 1.10.0-build.2-apiserver-additional-volume
   601c2037-44e4-4e74-696d-ff3faf6315e7:
     version: 1.9.0-build.18
   71267d76-7666-4781-421f-01592eeb52b2:
