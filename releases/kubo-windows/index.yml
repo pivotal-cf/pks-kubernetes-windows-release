@@ -13,6 +13,8 @@ builds:
     version: 1.9.0-build.3
   4e9f03c2-a2a8-4fb4-66fe-99b6cc261cd9:
     version: 0.31.0
+  54d0cfa1-abf8-4e5f-79b6-51d0c9901333:
+    version: 1.10.0-build.4-1.10-persist-node-label-taints
   601c2037-44e4-4e74-696d-ff3faf6315e7:
     version: 1.9.0-build.18
   60a365a2-f04a-431e-4fbe-5265361c1c05:
