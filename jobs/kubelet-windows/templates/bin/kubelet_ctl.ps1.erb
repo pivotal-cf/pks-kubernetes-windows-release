@@ -36,6 +36,14 @@ $env:PATH+=";C:\var\vcap\packages\docker\docker\;"
   labels = labels.join(',')
 %>
 
+<%  
+  taints = ""
+  if_p('k8s-args') do |args|
+    taints = args.fetch('node-taints', "")
+    args.delete('node-taints')
+  end  
+%>
+
 <% if_p('http_proxy') do |http_proxy| %>
 $env:HTTP_PROXY=<%= http_proxy %>
 <% end %>
@@ -111,6 +119,7 @@ function start_kubelet {
     <% if !iaas.nil? -%>--cloud-provider=${cloud_provider}<% end %> `
     --hostname-override=$(get_hostname_override) `
     --node-labels=<%= labels %> `
+    --register-with-taints=<%= taints %> `
     --config="/var/vcap/jobs/kubelet-windows/config/kubeletconfig.yml" `
     --tls-cipher-suites=<%= link('kube-apiserver').p('tls-cipher-suites') %>
 
