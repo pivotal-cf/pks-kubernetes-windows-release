@@ -7,6 +7,8 @@ builds:
     version: 1.9.0-build.28-bump-kubernetes-1.18.8
   22e1dd6f-cbfc-402c-7b78-5783c99f713e:
     version: 1.10.0-build.3-main
+  2774c50c-39fb-4f87-417e-990251363310:
+    version: 1.10.0-build.17-wht-cfcr-build
   2aec17ff-39e0-4736-6607-c0cbf8a7c585:
     version: 1.10.0-build.0-bump-kubernetes-1.19.2
   2b7bb225-f970-4ab6-5f1a-e5177810ea50:
