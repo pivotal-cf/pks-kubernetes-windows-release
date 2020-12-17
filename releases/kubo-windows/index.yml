@@ -5,6 +5,8 @@ builds:
     version: 0.34.0
   2304b7e5-35b8-4efb-4c0c-f9144386fbe1:
     version: 1.7.1-build.7-bump-kubernetes-1.16.14
+  28c8b2d5-3e0d-42f3-59ba-073c0070d28b:
+    version: 1.7.1-build.9-bump-kubernetes-1.16.15
   32dac3b5-f265-4cb5-6e4d-d5b2113bcef2:
     version: 1.7.0-build.48-1.7.x
   3bd9376b-8e65-4a03-57eb-50e0e67aa494:
