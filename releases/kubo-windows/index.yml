@@ -21,6 +21,8 @@ builds:
     version: 1.7.1-build.2
   900f88cd-c5eb-4a86-4fc6-faadc53d4239:
     version: 1.7.1-build.5
+  9a2e31ac-e008-4df6-427c-f679dcd6ae44:
+    version: 1.7.1-build.11-1.7.x
   9a38b2b9-b7f9-4a8e-61d8-ad7ac92da9c9:
     version: 0.32.1
   a0a8d8ca-dbb1-46aa-4bc3-e72d39184f8d:
