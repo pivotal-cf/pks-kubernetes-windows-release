@@ -5,6 +5,8 @@ builds:
     version: 0.38.0
   05237c1a-0a2f-4133-790d-a5567ba66d7d:
     version: 0.34.0
+  204baf27-7f92-4a4d-5f62-49bb37b8efb2:
+    version: 1.8.0-build.33-1.8.x
   4357da52-8be8-48e2-6609-ab392c3cc191:
     version: 1.8.0-build.25-1.8.x
   4745ba27-b7ea-4fc2-5a00-782199b6d235:
