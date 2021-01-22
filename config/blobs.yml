@@ -2,23 +2,23 @@ cni/cni-plugins-windows-amd64-c74e0e996.tgz:
   size: 9678154
   object_id: da0e8048-675b-4701-68e9-7db89e88723b
   sha: 02c4d67a17a28c26cc471e56bf01dcacd104b346
-docker-windows/docker-19-03-12.zip:
-  size: 89579527
-  object_id: 960e7c7d-816d-447c-41df-e1602cc19c9f
-  sha: ea7ff9b28f66be0ea2023aa6f042ec0f31eb7e55
+docker-windows/docker-19-03-14.zip:
+  size: 89855637
+  object_id: 49e5edde-47d0-4490-6718-4eb7ae4ceb86
+  sha: 1f2da6b6983cf8fa920b747b20f7c8f40e48392f
 flannel-v0.11.0-44-g3f87efc4-windows-amd64.tar.gz:
   size: 9548976
   object_id: 1a947dbf-c668-4e34-63c8-63d1aaa715d4
   sha: 7c68f433e4aac88210110df1d0596ee6b46f6157
-kubernetes-windows-1.17.13/kube-proxy.exe:
-  size: 41734656
-  object_id: afb8dad9-df6a-45e4-614e-1493688bf429
-  sha: 1d4c0c35ddf71f64d106dcc6ddded2c4e39f6b77
-kubernetes-windows-1.17.13/kubectl.exe:
-  size: 44009984
-  object_id: 7d5a4117-6ff5-4cb1-7840-7a4a64c47ec1
-  sha: 38316f31954f3f95b611d037eaf086e7eabd53e0
-kubernetes-windows-1.17.13/kubelet.exe:
-  size: 107551744
-  object_id: bd97d7a5-6cba-4619-5437-c1a214c54cde
-  sha: fdae34560345d58518180c0f6e859b923390c2eb
+kubernetes-windows-1.17.17/kube-proxy.exe:
+  size: 41673216
+  object_id: b57844f1-50a8-4f34-6420-822f83846348
+  sha: a649ad8c11e4b46c2a1507606e748f53f38a2388
+kubernetes-windows-1.17.17/kubectl.exe:
+  size: 43950080
+  object_id: 64fef42a-f296-4126-63e0-928d6e573326
+  sha: 72a4f03e70d716c348752bb07a39322bb4472fdd
+kubernetes-windows-1.17.17/kubelet.exe:
+  size: 107460096
+  object_id: 5ba0f2ce-516f-4b4e-6dd9-dcf357d8ec83
+  sha: 2a9daccd431fd20784db0e0f3d3122d25d8f899c
