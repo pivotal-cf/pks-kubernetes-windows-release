@@ -35,6 +35,8 @@ builds:
     version: 1.9.0-build.44-1.9.x
   8a345514-9af4-49ee-537c-1f775d0a0a39:
     version: 1.9.0-build.42-1.9.x
+  8ab1ce18-7944-4177-4ca3-3779eada892a:
+    version: 1.9.0-build.50-1.9.x
   9988845a-33d2-4eb2-7268-c388ddeab44f:
     version: 1.9.0-build.32-main
   9a38b2b9-b7f9-4a8e-61d8-ad7ac92da9c9:
