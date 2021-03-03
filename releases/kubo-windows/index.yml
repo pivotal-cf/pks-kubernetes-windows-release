@@ -19,6 +19,8 @@ builds:
     version: 1.9.0-build.64-1.9.x
   2f3c0def-aa66-4578-6d92-24a361eeadeb:
     version: 1.9.0-build.43-1.9.x
+  3b84fca8-2493-4f48-7ac3-8ac955ee7620:
+    version: 1.9.0-build.65-1.9.x
   48919c26-a3dd-46b1-486d-ceeeb4b413c6:
     version: 1.9.0-build.53-1.9.x
   4d311bbf-8396-4d5e-7d07-66a64049be71:
