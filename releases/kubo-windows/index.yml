@@ -17,18 +17,18 @@ builds:
     version: 1.9.0-build.39-1.9.x
   216b4785-e1e5-4344-4df0-88ccb072efea:
     version: 1.9.0-build.64-1.9.x
+  27825110-2c54-450f-71fc-5cbf17c7fa24:
+    version: 1.9.0-build.67-bump-kubernetes-1.18.16
   2f3c0def-aa66-4578-6d92-24a361eeadeb:
     version: 1.9.0-build.43-1.9.x
   2f8d0fb8-5bff-4e7a-7374-cd9da9780b4b:
     version: 1.9.0-build.66-1.9.x
+  35522fde-ca9d-469c-4a27-afe45efc7211:
+    version: 1.9.0-build.70-bump-kubernetes-1.18.16
   3b84fca8-2493-4f48-7ac3-8ac955ee7620:
     version: 1.9.0-build.65-1.9.x
   48919c26-a3dd-46b1-486d-ceeeb4b413c6:
     version: 1.9.0-build.53-1.9.x
-  27825110-2c54-450f-71fc-5cbf17c7fa24:
-    version: 1.9.0-build.67-bump-kubernetes-1.18.16
-  35522fde-ca9d-469c-4a27-afe45efc7211:
-    version: 1.9.0-build.70-bump-kubernetes-1.18.16
   4d311bbf-8396-4d5e-7d07-66a64049be71:
     version: 1.9.0-build.3
   4e9f03c2-a2a8-4fb4-66fe-99b6cc261cd9:
@@ -79,16 +79,18 @@ builds:
     version: 1.9.0-build.54-1.9.x
   c615c6d2-394e-4cb7-7df2-f733b2d76999:
     version: 1.10.0-build.2-1.9.x
-  d56b5dbd-8640-404b-6d2a-87be17c9dd97:
-    version: 1.9.0-build.58-1.9.x
   c92728f8-34dd-44e3-733e-85dc4db62454:
     version: 1.9.0-build.68-bump-kubernetes-1.18.16
+  d56b5dbd-8640-404b-6d2a-87be17c9dd97:
+    version: 1.9.0-build.58-1.9.x
   d6eeb156-5ebb-4951-5631-39c269d598e3:
     version: 0.40.0
   d761adff-745d-4f68-4101-160668ac8e9d:
     version: 1.9.0-build.61-1.9.x
   d7f79340-7d81-4108-7a95-ed69bea30b96:
     version: 1.9.0-build.30-main
+  d959a711-1403-4f8e-607c-efd155c3e68e:
+    version: 1.9.0-build.71-1.9.x
   daefaba4-2fb1-4520-7b34-1ff7c2d3522d:
     version: 1.9.0-build.26-main
   e1236d6a-06e6-45d1-52d0-9f63f1e50466:
