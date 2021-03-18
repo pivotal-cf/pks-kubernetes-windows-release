@@ -3,7 +3,7 @@
 $ErrorActionPreference = "Stop";
 trap { $host.SetShouldExit(1) }
 
-$KUBERNETES_VERSION="1.19.6"
+$KUBERNETES_VERSION="1.19.9"
 
 New-Item -Path "${env:BOSH_INSTALL_TARGET}" -Name "bin" -ItemType "directory"
 
