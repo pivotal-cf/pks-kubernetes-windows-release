@@ -45,8 +45,16 @@ function watch_disks() {
   $Path = "/var/vcap/jobs/kubelet-windows/config/disk_info"
   $DiskInfo = Get-Content $Path
   do {
-    ## assumption is that current VM has two disks by default, device 0 and 1, others are all created by k8s
-    $RemainDisks = (Get-Disk | Where-Object {($_.Number -notIn $DiskInfo )} | Measure-Object | Select-Object Count).count
+    ## assumption is that current VM has two disks by default, device 0 and 1, others are all created by k8s for PVs or Windows HCS(Host Compute Service) for containers.
+    ## To fix https://pivotal-spike.atlassian.net/browse/PKS-1037, all the disks created by Windows HCS for containers should be ignored as well, two reasons:
+    ##   1. DaemonSets are ignored;
+    ##   2. Some workloads may failed to be evicted for whatever reasons. Note that only the workloads which do not use PVs are ignored here.
+    ##
+    ## All the disks created by Windows HCS have a ".vhdx" suffix, such as
+    ##   C:\ProgramData\docker\windowsfilter\cb5b9ff419908f1f4950fb93b6a10fa72733f7d17df3f1fe34e62eff682df7ab\sandbox.vhdx
+    ## While the disks created by K8S for PVs do not have the ".vhdx" suffix, such as "SCSI1".
+
+    $RemainDisks = (Get-Disk | Where-Object {($_.Number -notIn $DiskInfo )} | Where-Object {$_.Location -notlike "*.vhdx"} | Measure-Object | Select-Object Count).count
     if ( $RemainDisks -eq 0 ){
       Log-Out ("[{0}] no attached PV" -f (get-date -Format "yyyy-MM-ddTHH:mm:ssZ"))
       return
