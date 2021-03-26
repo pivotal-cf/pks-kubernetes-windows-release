@@ -11,11 +11,10 @@ templates:
   config/kubeconfig-drain.erb: config/kubeconfig-drain
   config/kubeconfig.erb: config/kubeconfig
   config/kubelet-client-ca.pem.erb: config/kubelet-client-ca.pem
-  config/kubelet-key.pem.erb: config/kubelet-key.pem
-  config/kubelet.pem.erb: config/kubelet.pem
   config/kubeletconfig.yml.erb: config/kubeletconfig.yml
   config/openstack-ca.crt.erb: config/openstack-ca.crt
   config/service_key.json.erb: config/service_key.json
+  certificates/pks.crt.erb: certificates/pks.crt
 packages:
 - kubernetes-windows
 - cni-windows
@@ -87,7 +86,8 @@ consumes:
 # TODO: it doesn't make sense for kubelet to depend on kube-apiserver, should we extract a common config package / job?
 - name: kube-apiserver
   type: kube-apiserver
+- name: pks_api_shared
+  type: http
 provides:
 - name: kubernetes-workers
   type: kubernetes-workers
-
