@@ -22,3 +22,9 @@ if (-not $OldPath.Contains($AddedFolder)) {
 }
 
 $mtx.ReleaseMutex()
+
+# Add docker root directory
+$DockerRootDir="C:\var\vcap\jobs\docker-windows\docker"
+if (!(Test-Path -Path $DockerRootDir)) {
+  New-Item -ItemType directory -Path $DockerRootDir
+}
