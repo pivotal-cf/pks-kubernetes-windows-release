@@ -29,6 +29,8 @@ builds:
     version: 1.9.0-build.18
   60a365a2-f04a-431e-4fbe-5265361c1c05:
     version: 1.9.0-build.29-main
+  6ed5c275-e473-4a81-410a-94bcee2c780b:
+    version: 1.11.0-build.7-change-docker-rootdir
   71267d76-7666-4781-421f-01592eeb52b2:
     version: 0.41.0
   72efbd3a-3bd5-4ef4-65d3-43e2c7b94525:
