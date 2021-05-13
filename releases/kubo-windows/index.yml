@@ -65,6 +65,8 @@ builds:
     version: v0.32.0
   a1b10fe4-c306-44bc-5bf4-5c39535b2bb2:
     version: 1.9.0-build.59-1.9.x
+  a9c58bb7-3efc-4b6d-53ff-98de273709e6:
+    version: 1.9.0-build.74-1.9.x
   b08e9811-87ab-414c-7ec5-4ea1513b4f0b:
     version: 1.9.0-build.31-main
   b445153d-e062-493b-6c9c-c6fdf4b6f251:
