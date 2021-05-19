@@ -49,6 +49,8 @@ builds:
     version: 1.9.0-build.25-main
   b464e263-126f-422a-4ed8-b8b9781ef0bb:
     version: 1.9.0-build.6
+  bd0120cf-a75b-4daa-5eda-0280c4e7d219:
+    version: 1.10.0-build.33-1.10.x
   c9867062-fa86-4706-5784-cb0d470d86d3:
     version: 1.10.0-build.26-1.10.x
   ca2f2e28-3635-4293-45c8-3b8b5375648d:
