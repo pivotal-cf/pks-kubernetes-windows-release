@@ -1,4 +1,6 @@
 builds:
+  00a1c8f5-e7f2-4c90-4e2c-a7b5cfcee877:
+    version: 1.11.0-build.18-wht-fix-windows-drain-cluster
   048e1df9-f2e8-4815-4d14-4d71e37d6b9f:
     version: 0.38.0
   05237c1a-0a2f-4133-790d-a5567ba66d7d:
