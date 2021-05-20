@@ -35,6 +35,8 @@ builds:
     version: 0.41.0
   72efbd3a-3bd5-4ef4-65d3-43e2c7b94525:
     version: 1.9.0-build.20-master
+  852fd7a1-6b9b-4fd9-40a2-185aaede9e88:
+    version: 1.11.0-build.17-wht-fix-windows-drain-cluster
   8e93d47a-ca2e-4331-5f11-500a34dc85bf:
     version: 1.11.0-build.1-main
   907de82b-bd28-4da7-40f6-e97bb5608ca3:
