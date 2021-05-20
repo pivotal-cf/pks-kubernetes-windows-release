@@ -63,6 +63,8 @@ builds:
     version: 1.11.0-build.8-change-docker-rootdir
   daefaba4-2fb1-4520-7b34-1ff7c2d3522d:
     version: 1.9.0-build.26-main
+  dd24dc9d-174e-4a9d-7adb-bbdab15867dd:
+    version: 1.11.0-build.16-wht-fix-windows-drain-cluster
   e1236d6a-06e6-45d1-52d0-9f63f1e50466:
     version: 1.9.0-build.24-bump-kubernetes-1.18.6
   ec0e6cac-5b9d-46dd-45bb-4af3bdcdddee:
