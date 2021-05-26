@@ -1,0 +1,7 @@
+---
+name: drain-cluster-windows
+
+templates:
+  bin/run.ps1: bin/run.ps1
+
+properties: {}
