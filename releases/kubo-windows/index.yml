@@ -39,6 +39,8 @@ builds:
     version: 1.11.0-build.1-main
   907de82b-bd28-4da7-40f6-e97bb5608ca3:
     version: 1.11.0-build.10-main
+  93c67110-9e24-4f57-6803-258d2944894f:
+    version: 1.11.0-build.20-main
   9988845a-33d2-4eb2-7268-c388ddeab44f:
     version: 1.9.0-build.32-main
   9a38b2b9-b7f9-4a8e-61d8-ad7ac92da9c9:
