@@ -43,6 +43,8 @@ builds:
     version: 1.11.0-build.20-main
   9988845a-33d2-4eb2-7268-c388ddeab44f:
     version: 1.9.0-build.32-main
+  9a2f4c75-97df-421b-47d0-55d545672551:
+    version: 1.11.0-build.22-1.11.x
   9a38b2b9-b7f9-4a8e-61d8-ad7ac92da9c9:
     version: 0.32.1
   a0a8d8ca-dbb1-46aa-4bc3-e72d39184f8d:
