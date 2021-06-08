@@ -15,6 +15,8 @@ builds:
     version: 1.10.0-build.9-main
   35b915d3-3d59-410e-728f-7014423919f9:
     version: 1.11.0-build.6-main
+  397a5e62-a3f5-4aca-6947-97113b48c5fd:
+    version: 1.12.0-build.15.add-containerd
   442d7a19-f442-406e-6e03-8ae78b830b56:
     version: 1.10.0-build.10-main
   4b91138c-eeeb-4f91-7155-50f2e9c79e35:
