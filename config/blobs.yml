@@ -10,15 +10,15 @@ flannel-v0.11.0-44-g3f87efc4-windows-amd64.tar.gz:
   size: 9548976
   object_id: 1a947dbf-c668-4e34-63c8-63d1aaa715d4
   sha: 7c68f433e4aac88210110df1d0596ee6b46f6157
-kubernetes-windows-1.19.10/kube-proxy.exe:
-  size: 43203584
-  object_id: f2d4e36a-a006-4cf6-73d0-385cd656a831
-  sha: 3dda5e53308286a189419873069421f3ea35c15a
-kubernetes-windows-1.19.10/kubectl.exe:
-  size: 44253696
-  object_id: dff26aba-4f59-4d3f-6511-23473bfc4d09
-  sha: 21565db0b924e437759f7a838ada18b6d3113c5b
-kubernetes-windows-1.19.10/kubelet.exe:
-  size: 108875776
-  object_id: 0edb6c14-d6bc-4138-7142-e776c06b4419
-  sha: a34193f68ca34c33b36d5cc57f2afc659f425310
+kubernetes-windows-1.19.12/kube-proxy.exe:
+  size: 43209216
+  object_id: 26e2e5ca-3a8c-43c3-76d3-2199ddfc8caf
+  sha: d33a3d923522ac7d0ff5a55ee42d8bdac060f9e4
+kubernetes-windows-1.19.12/kubectl.exe:
+  size: 44258304
+  object_id: 65c2642d-ea1e-46ed-6c0d-72ddbdb78e2f
+  sha: b0a5109516078844cbdde1305ee48733a8363f33
+kubernetes-windows-1.19.12/kubelet.exe:
+  size: 108917248
+  object_id: e4154d88-1261-49a1-578a-ae2782982ce7
+  sha: 3f2420ce4014e821b8ad106915ee1b0536969fbe
