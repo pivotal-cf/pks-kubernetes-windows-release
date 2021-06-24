@@ -1,0 +1,9 @@
+. ./exiter.ps1
+
+$ErrorActionPreference = "Stop";
+trap { $host.SetShouldExit(1) }
+
+mkdir ${env:BOSH_INSTALL_TARGET}/bin
+$tgz=(get-childitem local-sign-windows-amd64.tgz).Name
+tar -xzf $tgz
+mv local-sign-windows-amd64.exe ${env:BOSH_INSTALL_TARGET}/bin/local-sign-windows.exe

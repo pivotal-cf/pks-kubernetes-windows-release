@@ -1,0 +1,6 @@
+---
+name: local-sign-windows
+
+files:
+- local-sign-windows-amd64.tgz
+- exiter.ps1

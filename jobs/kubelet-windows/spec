@@ -11,14 +11,15 @@ templates:
   config/kubeconfig-drain.erb: config/kubeconfig-drain
   config/kubeconfig.erb: config/kubeconfig
   config/kubelet-client-ca.pem.erb: config/kubelet-client-ca.pem
-  config/kubelet-key.pem.erb: config/kubelet-key.pem
-  config/kubelet.pem.erb: config/kubelet.pem
   config/kubeletconfig.yml.erb: config/kubeletconfig.yml
   config/openstack-ca.crt.erb: config/openstack-ca.crt
   config/service_key.json.erb: config/service_key.json
+  config/kubelet_ca_config.yml.erb: config/kubelet_ca_config.yml
+  config/kubelet_certificate_template.yml.erb: config/kubelet_certificate_template.yml
 packages:
 - kubernetes-windows
 - cni-windows
+- local-sign-windows
 properties:
   api-token:
     description: The token to access Kubernetes API
@@ -67,6 +68,12 @@ properties:
         azure-container-registry-config: base64 encoded config
   no_proxy:
     description: no_proxy env var for cloud provider interactions, i.e. for the kubelet
+  tls.kubelet-ca.ca:
+    description: CA certificate for kubelet
+  tls.kubelet-ca.certificate:
+    description: Certificate for the kubelet CA
+  tls.kubelet-ca.private_key:
+    description: Private key for the kubelet CA
   tls.kubelet:
     description: Certificate and private key for the Kubernetes worker
     parameters:

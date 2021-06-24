@@ -22,3 +22,7 @@ kubernetes-windows-1.21.2/kubelet.exe:
   size: 117448192
   object_id: 57bc6105-4a1e-4d1d-655f-ecba5bc87d66
   sha: 4930aadeac37e2515e3eb73fd4ca10573a64034d
+local-sign-windows-amd64.tgz:
+  size: 3319803
+  object_id: aaf0c43c-b970-4c2c-5afa-ab328ca4423a
+  sha: sha256:e9a673749dcce4d388dce5c21f063c5124410832e6a77c4f46fc426f76442070
