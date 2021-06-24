@@ -1,3 +1,4 @@
+
 # turn the sanPolicy to OnlineAll so that pvc could work properly
 Set-StorageSetting -NewDiskPolicy OnlineAll
 # Reads file-arguments.json, decodes base64 encoded values

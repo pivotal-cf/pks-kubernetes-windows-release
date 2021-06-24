@@ -46,6 +46,66 @@ $env:HTTPS_PROXY=<%= https_proxy %>
 $env:NO_PROXY=<%= no_proxy %>
 <% end %>
 
+# variables for cert generation
+$CONFIG_DIR = "C:\var\vcap\jobs\kubelet-windows\config"
+$PKS_API_HOST = "<%= link('pks_api_shared').p('pks.fqdn') %>"
+$PKS_API_URL = "https://${PKS_API_HOST}:9021/internal/certificates/kubelet"
+$NODE_IP = "<%= spec.ip %>"
+$BOSH_ID = "<%= spec.id %>"
+$DEPOLYMENT_NAME = "<%= spec.deployment %>"
+
+$CLUSTER_UUID = ($DEPOLYMENT_NAME -Split "_")[1]
+$KUBELET_CERT_PATH = "${CONFIG_DIR}\kubelet.pem"
+$KUBELET_KEY_PATH = "${CONFIG_DIR}\kubelet-key.pem"
+$POST_DATA = @"
+{
+  \"cluster_uuid\": \"${CLUSTER_UUID}\",
+  \"bosh_id\": \"${BOSH_ID}\",
+  \"ip\": \"${NODE_IP}\"
+}
+"@
+
+function wait_for_pks_master_dns_resolve(){
+    for ($retry = 0; $retry -lt 5; $retry++){
+    if (Test-Connection -Count 3 "${PKS_API_HOST}") {break}
+    echo "pks_master_aliases dns not resolving ,wait for 5 seconds to retry ${retry}..."
+    sleep 5
+    }
+    echo "pks-api resolved"
+}
+
+function do_kubelet_certificate_sign($exists){
+    if ($exists -eq "true"){
+        $api_url="${PKS_API_URL}/generate"
+    }
+    else{
+        $api_url="${PKS_API_URL}/generate_if_not_present"
+    }
+
+    $api_call="curl.exe -X POST -d '${POST_DATA}' -H ""Content-Type:application/json"" --cacert C:\var\vcap\jobs\kubelet-windows\certificates\pks.crt --ssl-no-revoke ""${api_url}"""
+    $retry_count = 0
+    $api_output = Invoke-Expression ${api_call}
+    for ($retry = 0; $retry -lt 3; $retry++){
+        if ([string]::IsNullOrEmpty($api_output) -or $api_output -match "error") {
+            sleep 5
+            $api_output = Invoke-Expression ${api_call}
+            echo "reconnecting to pks-api "
+        }else{
+            break
+        }
+    }
+   if ([string]::IsNullOrEmpty($api_output) -or $api_output -match "error"){
+       echo "Failed to get kubelet certificate."
+       exit 1
+   } else{
+       $certificate_pem = ($api_output | ConvertFrom-Json )."value"."certificate"
+       $private_key_pem = ($api_output | ConvertFrom-Json )."value"."private_key"
+       ${certificate_pem} | Out-File -Encoding ASCII -FilePath "${KUBELET_CERT_PATH}"
+       ${private_key_pem} | Out-File -Encoding ASCII -FilePath "${KUBELET_KEY_PATH}"
+       echo "successfully prepared kubelet certificate."
+   }
+}
+
 function delete_stale_drained_node {
   $nodes=(/var/vcap/packages/kubernetes-windows/bin/kubectl --kubeconfig /var/vcap/jobs/kubelet-windows/config/kubeconfig-drain get nodes -o json | ConvertFrom-Json).Items
   $nodes | ForEach-Object {
@@ -133,6 +193,20 @@ function set_acls {
 }
 
 function main {
+
+  wait_for_pks_master_dns_resolve
+
+  if (!(Test-Path $KUBELET_CERT_PATH)){
+      echo "Start to sign kubelet certificate..."
+      do_kubelet_certificate_sign "true"
+  } else{
+      $ip_in_cert = ((certutil.exe -dump ${KUBELET_CERT_PATH}| Select-String -pattern "IP Address") -Split "=")[1]
+      if ($NODE_IP -eq $ip_in_cert){
+          do_kubelet_certificate_sign "false"
+      } else {
+          do_kubelet_certificate_sign "true"
+      }
+  }
   delete_stale_drained_node
   check_for_networking
   set_acls
