@@ -8,7 +8,10 @@ templates:
 packages:
 - docker-windows
 
-properties: {}
+properties:
+  nobridge:
+    default: false
+    description: setting bridge to none if true
 
 consumes:
 - name: docker

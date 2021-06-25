@@ -1,8 +1,10 @@
+# this file left intentionally blank
+# this is a placeholder for tls properties if needed in the future
+# or changing the default log location to /var/vcap/sys/log if that is ever enabled by docker
+
 {
-  <%
-  # this file left intentionally blank
-  # this is a placeholder for tls properties if needed in the future
-  # or changing the default log location to /var/vcap/sys/log if that is ever enabled by docker
-  %>
+<% if p('nobridge') %>
+  "bridge": "none"
+<% end %>
   "data-root": "c:\\var\\vcap\\data\\docker-root"
 }
