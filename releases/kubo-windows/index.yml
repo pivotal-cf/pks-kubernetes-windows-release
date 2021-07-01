@@ -17,6 +17,8 @@ builds:
     version: 1.10.0-build.9-main
   35b915d3-3d59-410e-728f-7014423919f9:
     version: 1.11.0-build.6-main
+  410a0faa-f015-4b90-66a2-4126384fabd7:
+    version: 1.12.0-build.20.add-containerd
   442d7a19-f442-406e-6e03-8ae78b830b56:
     version: 1.10.0-build.10-main
   4b91138c-eeeb-4f91-7155-50f2e9c79e35:
@@ -49,6 +51,8 @@ builds:
     version: 1.9.0-build.32-main
   9a38b2b9-b7f9-4a8e-61d8-ad7ac92da9c9:
     version: 0.32.1
+  9cc2210c-8211-4b67-6a3f-0ee428219b16:
+    version: 1.12.0-build.17.add-containerd
   a0a8d8ca-dbb1-46aa-4bc3-e72d39184f8d:
     version: v0.32.0
   a428cddc-ab6d-4c65-7224-44ddb1725073:
