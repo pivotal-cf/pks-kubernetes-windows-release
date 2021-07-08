@@ -7,6 +7,8 @@ builds:
     version: 1.11.0-build.5-bump-kubernetes-1.20.5
   0b61126d-6b49-4046-6441-edd55bededa9:
     version: 1.9.0-build.28-bump-kubernetes-1.18.8
+  15761de6-1845-4940-709b-697f0e332768:
+    version: 1.11.0-build.22-bump-kubernetes-1.20.8
   22e1dd6f-cbfc-402c-7b78-5783c99f713e:
     version: 1.10.0-build.3-main
   2aec17ff-39e0-4736-6607-c0cbf8a7c585:
