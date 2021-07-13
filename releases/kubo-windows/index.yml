@@ -37,6 +37,8 @@ builds:
     version: 1.9.0-build.20-master
   86ceb496-4af5-4a62-501e-a2e6a9f114f2:
     version: 1.11.0-build.14-main
+  887dee4d-fe5d-40ea-654a-5bc6955fc9ee:
+    version: 1.11.0-build.23-bump-kubernetes-1.20.8
   8e93d47a-ca2e-4331-5f11-500a34dc85bf:
     version: 1.11.0-build.1-main
   907de82b-bd28-4da7-40f6-e97bb5608ca3:
