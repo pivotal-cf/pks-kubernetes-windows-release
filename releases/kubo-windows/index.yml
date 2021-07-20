@@ -91,4 +91,6 @@ builds:
     version: 1.10.0-build.14-main
   f52d4994-1835-4c3a-55e9-a3df6d24bb4c:
     version: 0.39.0
+  fa217446-96a8-497f-722c-7d9133228f40:
+    version: 1.12.0-build.24.main
 format-version: "2"
